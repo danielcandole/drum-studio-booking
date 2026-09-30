@@ -1,0 +1,12 @@
+<?php require __DIR__.'/includes/bootstrap.php';
+if (user()) redirect(user()['role']==='admin'?'admin/index.php':'client/index.php');
+$error='';
+if ($_SERVER['REQUEST_METHOD']==='POST') { verify_csrf(); $name=trim($_POST['name']??''); $email=strtolower(trim($_POST['email']??'')); $phone=trim($_POST['phone']??''); $password=$_POST['password']??''; $confirm=$_POST['confirm_password']??'';
+    if (mb_strlen($name)<2 || mb_strlen($name)>100) $error='Name must be between 2 and 100 characters.';
+    elseif (!filter_var($email,FILTER_VALIDATE_EMAIL) || strlen($email)>190) $error='Enter a valid email address.';
+    elseif ($phone!=='' && !preg_match('/^[0-9+() .-]{7,25}$/',$phone)) $error='Enter a valid contact number.';
+    elseif (strlen($password)<8) $error='Password must be at least 8 characters.';
+    elseif ($password!==$confirm) $error='The passwords do not match.';
+    else { try { $q=db()->prepare("INSERT INTO users(name,email,phone,password_hash,role) VALUES(?,?,?,?, 'client')"); $q->execute([$name,$email,$phone,password_hash($password,PASSWORD_DEFAULT)]); flash('success','Account created. You can now log in.'); redirect('login.php'); } catch(PDOException $ex) { if($ex->getCode()==='23000') $error='That email address is already registered.'; else { error_log($ex->__toString()); $error='Registration failed due to a server or database error. Please try again.'; } } }
+}
+page_header('Create your account'); ?><div class="form-card narrow"><p class="muted">Register as a client to request studio bookings.</p><?php if($error):?><div class="alert error"><?=e($error)?></div><?php endif; ?><form method="post"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><label>Full name<input name="name" maxlength="100" autocomplete="name" required value="<?=e($_POST['name']??'')?>"></label><label>Email address<input type="email" name="email" maxlength="190" autocomplete="email" required value="<?=e($_POST['email']??'')?>"></label><label>Contact number <span class="muted">(optional)</span><input name="phone" maxlength="25" autocomplete="tel" value="<?=e($_POST['phone']??'')?>"></label><label>Password<input type="password" name="password" minlength="8" autocomplete="new-password" required><small>At least 8 characters.</small></label><label>Confirm password<input type="password" name="confirm_password" minlength="8" autocomplete="new-password" required></label><button class="button full" type="submit">Create account</button></form><p class="form-foot">Already registered? <a href="login.php">Log in</a></p></div><?php page_footer();
