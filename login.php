@@ -1,8 +1,0 @@
-<?php require __DIR__.'/includes/bootstrap.php';
-if (user()) redirect(user()['role']==='admin'?'admin/index.php':'client/index.php');
-$error='';
-if ($_SERVER['REQUEST_METHOD']==='POST') { verify_csrf(); $email=trim(strtolower($_POST['email']??'')); $password=$_POST['password']??'';
-    if (!filter_var($email,FILTER_VALIDATE_EMAIL) || $password==='') $error='Enter a valid email and password.';
-    else { try { $q=db()->prepare('SELECT id,name,email,password_hash,role FROM users WHERE email=? AND is_active=1'); $q->execute([$email]); $u=$q->fetch(); if ($u && password_verify($password,$u['password_hash'])) { session_regenerate_id(true); unset($u['password_hash']); $_SESSION['user']=$u; redirect($u['role']==='admin'?'admin/index.php':'client/index.php'); } $error='Email or password is incorrect.'; } catch(Throwable $ex) { error_log($ex->__toString()); $error='We could not sign you in right now. Check the database setup and try again.'; } }
-}
-page_header('Log in'); ?><div class="form-card narrow"><p class="muted">Welcome back. Enter your account details.</p><?php if($error):?><div class="alert error"><?=e($error)?></div><?php endif; ?><form method="post"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><label>Email address<input type="email" name="email" autocomplete="email" required value="<?=e($_POST['email']??'')?>"></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="button full" type="submit">Log in</button></form><p class="form-foot">New here? <a href="register.php">Create an account</a></p></div><?php page_footer();
