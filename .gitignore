@@ -19,9 +19,3 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
-
-# PHP session files
-/database/sessions/*
-!/database/sessions/.gitkeep
-
-.git
