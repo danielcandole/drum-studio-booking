@@ -24,6 +24,7 @@ react(),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
+      blockDatabaseAccess(),
     ],
     resolve: {
       alias: {
@@ -34,6 +35,12 @@ react(),
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
+      proxy: {
+        '/api.php': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: true,
+        },
+      },
       watch: {
         ignored: [
           '**/.figma/**',
@@ -46,6 +53,24 @@ react(),
     },
   }
 })
+
+
+function blockDatabaseAccess(): Plugin {
+  return {
+    name: 'block-database-access',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url?.split('?')[0].startsWith('/database/')) {
+          res.statusCode = 403
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          res.end(JSON.stringify({ message: 'Direct database access is forbidden.' }))
+          return
+        }
+        next()
+      })
+    },
+  }
+}
 
 type FigmaSiteConfiguration = {
   title?: string

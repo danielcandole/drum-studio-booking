@@ -1,0 +1,93 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Alex Stone",
+            "email": "admin@beatbase.test",
+            "password": "$2y$12$9KzNFoMh9VA/s8AmjPfllee83orvQX49ak7yroN9uBrHee7hSGI6C",
+            "role": "owner",
+            "phone": "+63 917 000 0001",
+            "createdAt": "2026-06-01T09:00:00+08:00"
+        },
+        {
+            "id": 2,
+            "name": "Jamie Carter",
+            "email": "jamie@example.com",
+            "password": "$2y$12$DYNz2cC8pcDL7ZhjBEnfOOidr//11MKdrjXBNPDGsxpmw3VcNOETy",
+            "role": "drummer",
+            "phone": "+63 917 000 0002",
+            "createdAt": "2026-06-02T09:00:00+08:00"
+        },
+        {
+            "id": 3,
+            "name": "James",
+            "email": "wasd@gmail.com",
+            "password": "$2y$12$cTqvPvmFVW5mWnF3.XIrBe1qKTLz/tu9f72TRw1Fg4mGzt2U85SmK",
+            "role": "drummer",
+            "phone": "",
+            "createdAt": "2026-10-06T11:27:16+08:00"
+        }
+    ],
+    "rooms": [
+        {
+            "id": 1,
+            "name": "The Live Room",
+            "price": 28,
+            "capacity": 4,
+            "equipment": "Pearl Export, Zildjian cymbals",
+            "image": "https://images.unsplash.com/photo-1537054388073-cf990597af2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+        },
+        {
+            "id": 2,
+            "name": "Studio B",
+            "price": 22,
+            "capacity": 3,
+            "equipment": "Tama Superstar, Sabian cymbals",
+            "image": "https://images.unsplash.com/photo-1568315618710-6210e787eef0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+        },
+        {
+            "id": 3,
+            "name": "Practice Pod",
+            "price": 16,
+            "capacity": 2,
+            "equipment": "Yamaha Stage Custom, headphones",
+            "image": "https://images.unsplash.com/photo-1731003163686-040d11411c18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+        }
+    ],
+    "bookings": [
+        {
+            "id": 1024,
+            "userId": 2,
+            "roomId": 1,
+            "date": "2026-10-08",
+            "time": "16:00",
+            "duration": 1,
+            "status": "approved",
+            "payment": "Paid",
+            "createdAt": "2026-10-05T10:00:00+08:00"
+        },
+        {
+            "id": 1025,
+            "userId": 2,
+            "roomId": 2,
+            "date": "2026-10-10",
+            "time": "18:00",
+            "duration": 1,
+            "status": "pending",
+            "payment": "Pending",
+            "createdAt": "2026-10-05T11:00:00+08:00"
+        },
+        {
+            "id": 1026,
+            "userId": 2,
+            "roomId": 3,
+            "date": "2026-09-19",
+            "time": "15:00",
+            "duration": 1,
+            "status": "cancelled",
+            "payment": "Refunded",
+            "createdAt": "2026-09-18T11:00:00+08:00"
+        }
+    ],
+    "tokens": []
+}
