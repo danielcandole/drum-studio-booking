@@ -1,0 +1,10 @@
+{
+  "description": "Effortlessly book practice sessions at drum studios with a user-friendly interface for drummers and studio owners to manage schedules and payments.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

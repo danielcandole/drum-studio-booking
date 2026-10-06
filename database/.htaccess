@@ -1,0 +1,3 @@
+<FilesMatch "^(data\.json|.*\.json)$">
+  Require all denied
+</FilesMatch>
