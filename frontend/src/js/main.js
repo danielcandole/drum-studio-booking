@@ -111,7 +111,7 @@ function renderNav() {
   }
 
   const links = currentUser.role === "owner" ? [
-    ["owner-dashboard", "Dashboard"],
+    ["owner-dashboard", "Home"],
     ["manage-bookings", "Manage Bookings"],
     ["manage-rooms", "Rooms"],
     //["profile", "Profile"],
