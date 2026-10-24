@@ -296,9 +296,8 @@
 .toast-region {
   position: fixed;
   z-index: 200;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 88px;
+  right: var(--space-md);
   display: grid;
   width: min(400px, calc(100% - 32px));
   gap: var(--space-sm);
@@ -310,28 +309,28 @@
   gap: var(--space-md);
   padding: var(--space-md);
   background: var(--color-surface);
-  border-left: 5px solid var(--color-primary);
+  border-right: 5px solid var(--color-primary);
+  border-left: none;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-lg);
   animation: slide-in 240ms ease-out;
 
   &-success {
-    border-color: var(--color-success);
+    border-right-color: var(--color-success);
   }
 
   &-error {
-    border-color: var(--color-error);
+    border-right-color: var(--color-error);
   }
 
   &-info {
-    border-color: var(--color-accent);
+    border-right-color: var(--color-accent);
   }
 
   p {
     margin: 0;
   }
 }
-
 .tabs {
   display: inline-flex;
   margin-bottom: var(--space-lg);
