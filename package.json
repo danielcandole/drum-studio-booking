@@ -1,0 +1,19 @@
+{
+  "name": "beatbase-drum-studio-booking",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently -k \"node --watch server.js\" \"sass --watch --no-source-map frontend/src/scss/main.scss frontend/src/css/main.css\"",
+    "build:css": "sass --no-source-map frontend/src/scss/main.scss frontend/src/css/main.css",
+    "watch:css": "sass --watch --no-source-map frontend/src/scss/main.scss frontend/src/css/main.css"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "sass": "^1.89.0"
+  }
+}
