@@ -718,6 +718,7 @@ h3 {
   min-width: 0;
 }
 .auth-panel .auth-form {
+  padding: 20px;
   width: min(100%, 460px);
   margin: 0;
 }
