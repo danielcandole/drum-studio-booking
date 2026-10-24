@@ -2,7 +2,6 @@
   display: grid;
   min-height: calc(100vh - 72px);
   grid-template-columns: 1fr 1fr;
-  align-items: start;
 
 }
 
@@ -10,7 +9,6 @@
   position: sticky;
   top: 72px;
   height: calc(100vh - 72px);
-  align-self: start;
   padding: var(--space-2xl);
   color: var(--color-surface);
   background:
