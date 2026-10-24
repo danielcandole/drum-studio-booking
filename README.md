@@ -1,6 +1,6 @@
 # BeatBase — Drum Studio Booking System
 
-A prototype drum-studio booking application built with **HTML, SCSS, vanilla JavaScript, Node.js, and JSON file storage**. It does not use React, Vite, PHP, or a SQL database.
+A prototype drum-studio booking application built with **HTML, SCSS, vanilla JS, and Node.js**.
 
 ## Requirements
 
@@ -25,48 +25,10 @@ For frontend styling work, use a second terminal and run `npm run watch:css`; it
 
 **Studio owner**
 
-- Email: `admin@beatbase.test`
-- Password: `Admin123!`
+- Email: `owner@gmail.com`
+- Password: `12341234`
 
 **Drummer**
 
-- Email: `jamie@example.com`
-- Password: `Password123!`
-
-## Storage
-
-Application data is stored in `database/data.json`. Node.js reads and writes the file through the API; frontend JavaScript does not access the JSON file directly. The server blocks direct HTTP access to the data file.
-
-The file contains users, bcrypt password hashes, rooms, bookings, and authentication tokens. Back it up before resetting demo data. JSON storage is appropriate for a local prototype, but it is not a production database: simultaneous writes and multi-process deployment are not robustly coordinated.
-
-## Project structure
-
-```text
-beatbase-drum-studio-booking/
-├── server.js
-├── package.json
-├── .env.example
-├── index.html
-├── database/
-│   └── data.json
-└── frontend/
-    └── src/
-        ├── components/       # shared HTML fragments
-        ├── css/               # compiled CSS served by the browser
-        ├── scss/              # editable SCSS sources
-        └── js/                # vanilla JavaScript modules
-```
-
-## API overview
-
-- `POST /api/auth/login`, `GET /api/auth/session`, `POST /api/auth/logout`
-- `POST /api/users/register`, `GET|PUT|DELETE /api/users/profile`
-- `GET|POST /api/rooms`, `PUT|DELETE /api/rooms/:id`
-- `GET|POST /api/bookings`, `GET|PUT|DELETE /api/bookings/:id`
-- `GET /api/bookings/availability?roomId=:id&date=YYYY-MM-DD`
-
-## Prototype limitations
-
-- Account roles are selected during registration for demonstration; do not expose this registration flow publicly without restricting owner creation.
-- JSON storage is for local/classroom use and is not designed for concurrent production traffic.
-- Use only local/test data. This prototype is not hardened for public internet deployment.
+- Email: `drummer@gmail.com`
+- Password: `12341234`
