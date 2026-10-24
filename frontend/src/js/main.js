@@ -303,8 +303,8 @@ async function updateBookingAvailability() {
     <h2>${escapeHtml(room.name)}</h2>
     <div class="summary-line"><span>Date</span><strong>${formatDate(selectedBookingDate)}</strong></div>
     <div class="summary-line"><span>Time</span><strong>${selectedBookingTime ? labels[selectedBookingTime] : "Choose a time"}</strong></div>
-<div class="summary-line"><span>Duration</span><strong>${selectedBookingDuration} ${selectedBookingDuration === 1 ? "hour" : "hours"}</strong></div>
-<div class="summary-line summary-total"><span>Total</span><span>${currency(room.price * selectedBookingDuration)}</span></div>
+    <div class="summary-line"><span>Duration</span><strong>${selectedBookingDuration} ${selectedBookingDuration === 1 ? "hour" : "hours"}</strong></div>
+    <div class="summary-line summary-total"><span>Total</span><span>${currency(room.price * selectedBookingDuration)}</span></div>
     <button class="btn" id="confirm-booking" style="width:100%;margin-top:var(--space-lg)" ${selectedBookingTime ? "" : "disabled"}><i class="fa-solid fa-calendar-check"></i>${selectedBookingId ? "Save Changes" : "Confirm Booking"}</button>
     `; //<p class="muted" style="font-size:var(--font-size-caption);margin-top:var(--space-md)"><i class="fa-solid fa-shield-halved"></i> Availability is calculated from stored bookings.</p>
 }
