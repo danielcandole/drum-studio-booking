@@ -291,17 +291,31 @@ async function updateBookingAvailability() {
     `; //<p class="muted" style="font-size:var(--font-size-caption);margin-top:var(--space-md)"><i class="fa-solid fa-shield-halved"></i> Availability is calculated from stored bookings.</p>
 }
 
+
 async function renderMyBookings() {
-  const {
-    bookings
-  } = await bookingsApi.list();
-  const upcoming = bookings.filter((b) => b.status !== "cancelled" && new Date(`${b.date}T${b.time}`) >= new Date());
-  const past = bookings.filter((b) => b.status === "cancelled" || new Date(`${b.date}T${b.time}`) < new Date());
+  const { bookings } = await bookingsApi.list();
+  const now = new Date();
+
+  const upcoming = bookings.filter((b) =>
+    b.status !== "cancelled" &&
+    new Date(`${b.date}T${b.time}`) >= now
+  );
+
+  const past = bookings.filter((b) =>
+    b.status === "cancelled" ||
+    new Date(`${b.date}T${b.time}`) < now
+  );
+
   await loadPage("my-bookings");
+
   document.querySelector("#upcoming-count").textContent = `(${upcoming.length})`;
   document.querySelector("#past-count").textContent = `(${past.length})`;
-  document.querySelector("#booking-list").innerHTML = upcoming.length ? upcoming.map((b) => renderBookingCard(b)).join("") : `<div class="card card-body"><p class="muted">No upcoming bookings.</p></div>`;
+
+  document.querySelector("#booking-list").innerHTML = upcoming.length
+    ? upcoming.map((b) => renderBookingCard(b)).join("")
+    : `<div class="card card-body"><p class="muted">No upcoming bookings.</p></div>`;
 }
+
 
 async function renderOwnerDashboard() {
   const [{
