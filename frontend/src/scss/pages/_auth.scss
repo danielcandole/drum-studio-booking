@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: flex-start;
   min-height: calc(100vh - 72px);
+  background: var(--color-surface);
 }
 
 .auth-visual {
@@ -30,7 +31,7 @@
 .auth-panel {
   flex: 0 0 50%;
   min-width: 0;
-  background: var(--color-surface);
+  
   .auth-form {
     width: min(100%, 460px);
     margin: 0 auto;

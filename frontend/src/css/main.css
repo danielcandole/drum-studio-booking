@@ -689,6 +689,7 @@ h3 {
   flex-direction: row;
   align-items: flex-start;
   min-height: calc(100vh - 72px);
+  background: var(--color-surface);
 }
 
 .auth-visual {
@@ -712,7 +713,6 @@ h3 {
 .auth-panel {
   flex: 0 0 50%;
   min-width: 0;
-  background: var(--color-surface);
 }
 .auth-panel .auth-form {
   width: min(100%, 460px);
