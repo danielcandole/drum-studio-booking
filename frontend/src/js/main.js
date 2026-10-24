@@ -99,6 +99,14 @@ function formatDateTime(booking) {
   return `${formatDate(booking.date)} · ${booking.time}`;
 }
 
+
+function sortBookingsNewestFirst(bookings) {
+  return [...bookings].sort((a, b) =>
+    `${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`)
+  );
+}
+
+
 function renderNav() {
   const nav = document.querySelector("#nav-links");
   if (!nav) return;
