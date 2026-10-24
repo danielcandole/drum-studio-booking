@@ -6,11 +6,23 @@
   background: var(--color-surface);
 }
 
+.auth-page {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: calc(100vh - 72px);
+}
+
+.auth-visual,
+.auth-panel {
+  flex: 0 0 50%;
+  height: calc(100vh - 72px);
+  box-sizing: border-box;
+}
+
 .auth-visual {
   position: sticky;
   top: 72px;
-  flex: 0 0 50%;
-  height: calc(100vh - 72px);
   padding: var(--space-2xl);
   color: var(--color-surface);
   background:
@@ -30,10 +42,10 @@
 
 .auth-panel {
   display: flex;
-  flex: 0 0 50%;
   justify-content: center;
   align-items: center;
   min-width: 0;
+  background: var(--color-surface);
 
   .auth-form {
     width: min(100%, 460px);
