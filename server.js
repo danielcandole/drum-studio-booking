@@ -5,9 +5,8 @@ import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 
-// ---------------------------------------------------------------------------
+
 // Config
-// ---------------------------------------------------------------------------
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = path.join(ROOT, 'database', 'data.json');
@@ -29,9 +28,8 @@ const MIME = {
 
 let writeQueue = Promise.resolve();
 
-// ---------------------------------------------------------------------------
+
 // Data storage
-// ---------------------------------------------------------------------------
 
 async function readData() {
   const raw = await readFile(DATA_FILE, 'utf8');
@@ -56,9 +54,8 @@ async function writeData(data) {
   return writeQueue;
 }
 
-// ---------------------------------------------------------------------------
+
 // HTTP helpers
-// ---------------------------------------------------------------------------
 
 function send(res, status, data) {
   res.writeHead(status, {
@@ -92,9 +89,8 @@ async function body(req) {
   }
 }
 
-// ---------------------------------------------------------------------------
+
 // Auth helpers
-// ---------------------------------------------------------------------------
 
 function publicUser(user) {
   if (!user) return null;
@@ -137,9 +133,8 @@ function requireOwner(data, req) {
   return user;
 }
 
-// ---------------------------------------------------------------------------
+
 // Data helpers
-// ---------------------------------------------------------------------------
 
 function nextId(items) {
   if (!items.length) return 1;
@@ -228,10 +223,8 @@ function validateBooking(data, payload, ignoreId = null) {
   return { roomId, date, time, duration };
 }
 
-// ---------------------------------------------------------------------------
-// API router
-// ---------------------------------------------------------------------------
 
+// API router
 async function api(req, res, url) {
   const route = url.pathname.replace(/^\/api\/?/, '').replace(/\/$/, '');
   const method = req.method.toUpperCase();
@@ -241,7 +234,7 @@ async function api(req, res, url) {
     : {};
   let match;
 
-  // --- Auth ---------------------------------------------------------------
+  // --- Auth
 
   if (route === 'auth/session' && method === 'GET') {
     return send(res, 200, {
@@ -288,7 +281,7 @@ async function api(req, res, url) {
     return send(res, 200, { message: 'Logged out successfully.' });
   }
 
-  // --- Users --------------------------------------------------------------
+  // --- Users
 
   if (route === 'users/register' && method === 'POST') {
     const name = String(payload.name || '').trim();
@@ -376,7 +369,7 @@ async function api(req, res, url) {
     return send(res, 200, { message: 'Account deleted.' });
   }
 
-  // --- Rooms --------------------------------------------------------------
+  // --- Rooms
 
   if (route === 'rooms' && method === 'GET') {
     return send(res, 200, { rooms: data.rooms });
@@ -460,7 +453,7 @@ async function api(req, res, url) {
     return send(res, 200, { message: 'Room deleted.' });
   }
 
-  // --- Bookings -----------------------------------------------------------
+  // --- Bookings
 
   if (route === 'bookings/availability' && method === 'GET') {
     requireUser(data, req);
@@ -605,9 +598,8 @@ async function api(req, res, url) {
   });
 }
 
-// ---------------------------------------------------------------------------
+
 // Server (API + static files)
-// ---------------------------------------------------------------------------
 
 const server = http.createServer(async (req, res) => {
   try {
