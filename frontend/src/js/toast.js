@@ -5,8 +5,8 @@ export function showToast(type, message, title = "") {
   toast.className = `toast toast-${type}`;
   toast.innerHTML = `
     <i class="fa-solid fa-${icons[type] || icons.info}" aria-hidden="true"></i>
-    <div><strong>${title || (type === "success" ? "Success" : "Notice")}</strong><p>${message}</p></div>
+    <div class="toastTitle"><strong>${title || (type === "success" ? "Success" : "Notice")}</strong><p>${message}</p></div>
   `;
   root.append(toast);
-  // setTimeout(() => toast.remove(), 4200);
+  setTimeout(() => toast.remove(), 4200);
 }
