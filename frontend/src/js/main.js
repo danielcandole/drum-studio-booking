@@ -352,9 +352,10 @@ async function renderMyBookings() {
   document.querySelector("#upcoming-count").textContent = `(${upcoming.length})`;
   document.querySelector("#past-count").textContent = `(${past.length})`;
 
-  document.querySelector("#booking-list").innerHTML = upcoming.length
-    ? upcoming.map((b) => renderBookingCard(b)).join("")
-    : `<div class="card card-body"><p class="muted">No upcoming bookings.</p></div>`;
+  document.querySelector("#manage-bookings-list").innerHTML = sortBookingsNewestFirst(bookings)
+    .map((booking) => `<tr data-booking-id="${booking.id}"><td><strong>${escapeHtml(booking.customer)}</strong><br><span class="muted">#${booking.id}</span></td><td>${escapeHtml(booking.room)}</td><td>${formatDateTime(booking)}<br><span class="muted">${currency(booking.total)}</span></td><td>${escapeHtml(booking.payment)}</td><td>${renderStatusBadge(booking.status)}</td><td><div class="btn-row">${booking.status === "pending" ? '<button class="btn btn-small" data-action="approve-booking"><i class="fa-solid fa-check"></i>Approve</button>' : ""}${booking.status !== "cancelled" ? '<button class="btn btn-secondary btn-small" data-action="edit-owner-booking"><i class="fa-solid fa-pencil"></i>Edit</button><button class="btn btn-ghost btn-small" data-action="cancel-booking"><i class="fa-solid fa-ban"></i>Cancel</button>' : ""}</div></td></tr>`)
+    .join("");
+
 }
 
 
