@@ -812,7 +812,7 @@ h3 {
 
 .sticky-panel {
   position: sticky;
-  top: 1900px;
+  top: 350px;
 }
 @media (max-width: 820px) {
   .sticky-panel {
