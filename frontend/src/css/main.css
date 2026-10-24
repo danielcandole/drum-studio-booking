@@ -1046,8 +1046,3 @@ h3 {
     transform: rotate(360deg);
   }
 }
-@media (max-width: 560px) {
-  .card-body {
-    padding: var(--space-md);
-  }
-}
