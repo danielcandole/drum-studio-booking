@@ -139,6 +139,11 @@
       "token": "bafbe260dd3bced9935366794b94ec40a89d98526fc3450c887b4cbec7b2619c",
       "userId": 1,
       "createdAt": "2026-10-24T05:18:43.476Z"
+    },
+    {
+      "token": "df62149a72addb8366ea733d63a3ea3f324cb334dbb7c306e8adb41d02a23b4a",
+      "userId": 7,
+      "createdAt": "2026-10-24T07:39:49.743Z"
     }
   ]
 }
