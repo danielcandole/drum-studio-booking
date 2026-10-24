@@ -692,20 +692,6 @@ h3 {
   background: var(--color-surface);
 }
 
-.auth-page {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  min-height: calc(100vh - 72px);
-}
-
-.auth-visual,
-.auth-panel {
-  flex: 0 0 50%;
-  height: calc(100vh - 72px);
-  box-sizing: border-box;
-}
-
 .auth-visual {
   position: sticky;
   top: 72px;
