@@ -151,8 +151,8 @@
       "date": "2026-10-24",
       "time": "12:00",
       "duration": 4,
-      "status": "pending",
-      "payment": "Pending",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-24T08:47:19.484Z"
     },
     {
@@ -160,7 +160,7 @@
       "userId": 7,
       "roomId": 1,
       "date": "2026-10-24",
-      "time": "17:00",
+      "time": "18:00",
       "duration": 1,
       "status": "pending",
       "payment": "Pending",
@@ -173,8 +173,8 @@
       "date": "2026-10-24",
       "time": "18:00",
       "duration": 1,
-      "status": "pending",
-      "payment": "Pending",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-24T08:49:33.219Z"
     }
   ],
