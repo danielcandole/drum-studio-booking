@@ -76,7 +76,7 @@
   "rooms": [
     {
       "id": 1,
-      "name": "The Live Room",
+      "name": "The Live Room 101",
       "price": 28,
       "capacity": 4,
       "equipment": "Pearl Export, Zildjian cymbals",
