@@ -62,6 +62,15 @@
       "role": "drummer",
       "phone": "",
       "createdAt": "2026-10-24T07:27:41.030Z"
+    },
+    {
+      "id": 8,
+      "name": "Me Owner",
+      "email": "owner@gmail.com",
+      "password": "$2a$10$W9mo1KJlKGMYMOw1xZozSOB2r/3iv7ysQssIg.Mwjmn/Z4WIxNxlS",
+      "role": "owner",
+      "phone": "",
+      "createdAt": "2026-10-24T07:28:06.791Z"
     }
   ],
   "rooms": [
