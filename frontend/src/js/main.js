@@ -628,10 +628,12 @@ document.addEventListener("click", async (event) => {
         duration: selectedBookingDuration
       }, async () => {
         selectedBookingId = null;
+        isEditingBookingInitialized = false;
         selectedBookingDate = "";
         selectedBookingTime = "";
         selectedBookingDuration = 1;
         selectedRoomId = null;
+
         await navigate("my-bookings");
       });
     } else {
