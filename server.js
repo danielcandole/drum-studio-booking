@@ -289,9 +289,23 @@ async function api(req, res, url) {
     const password = String(payload.password || '');
     const role = payload.role === 'owner' ? 'owner' : 'drummer';
 
-    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 8) {
+    if (!name) {
       throw Object.assign(
-        new Error('Please provide a valid name, email, and password of at least 8 characters.'),
+        new Error('Please provide a name.'),
+        { status: 422 }
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw Object.assign(
+        new Error('Please provide a valid email address.'),
+        { status: 422 }
+      );
+    }
+
+    if (password.length < 8) {
+      throw Object.assign(
+        new Error('Password must be at least 8 characters long.'),
         { status: 422 }
       );
     }
