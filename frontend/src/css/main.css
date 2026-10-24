@@ -509,9 +509,6 @@ h3 {
 .toast-success {
   border-color: var(--color-success);
 }
-.toast-error {
-  border-color: var(--color-error);
-}
 .toast-info {
   border-color: var(--color-accent);
 }
