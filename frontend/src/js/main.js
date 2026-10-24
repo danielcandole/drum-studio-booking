@@ -239,6 +239,12 @@ async function renderBookStudio() {
   document.querySelector("#studio-rooms").innerHTML = rooms.map((room) => `<div class="span-6">${renderRoomCard({ ...room, selected: room.id === selectedRoomId }, true)}</div>`).join("");
   document.querySelector("#booking-date").min = new Date().toISOString().slice(0, 10);
   document.querySelector("#booking-date").value = selectedBookingDate;
+  document.querySelectorAll(".duration-option").forEach((button) => {
+    button.classList.toggle(
+      "selected",
+      Number(button.dataset.duration) === selectedBookingDuration
+    );
+  });
   await updateBookingAvailability();
 }
 
