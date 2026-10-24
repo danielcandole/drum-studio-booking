@@ -227,6 +227,7 @@ async function renderBookStudio() {
       selectedRoomId = Number(editing.roomId);
       selectedBookingDate = editing.date;
       selectedBookingTime = editing.time;
+      selectedBookingDuration = Number(editing.duration) || 1;
     } else selectedBookingId = null;
   }
   if (!selectedRoomId || !rooms.some((r) => r.id === selectedRoomId)) selectedRoomId = rooms[0]?.id ?? null;
