@@ -208,9 +208,9 @@ async function renderDrummerHome() {
   document.querySelector("#welcome-title").textContent = `Ready to make some noise, ${currentUser.name}?`;
   document.querySelector("#welcome-description").textContent = next ? `Your next session is ${next.time} at ${next.room}.` : "You have no upcoming sessions yet.";
   document.querySelector("#next-booking").innerHTML = next ? renderBookingCard(next) : `<div class="card card-body"><p class="muted">No upcoming bookings.</p></div>`;
-  document.querySelector("#completed-count").textContent = completed.length;
-  document.querySelector("#practice-hours").textContent = `${practiceHours}h`;
-  document.querySelector("#favorite-room").textContent = favoriteRoom ? favoriteRoom.name : "—";
+  //document.querySelector("#completed-count").textContent = completed.length;
+  //document.querySelector("#practice-hours").textContent = `${practiceHours}h`;
+  //document.querySelector("#favorite-room").textContent = favoriteRoom ? favoriteRoom.name : "—";
 }
 
 async function renderBookStudio() {
