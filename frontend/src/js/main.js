@@ -526,17 +526,15 @@ document.addEventListener("click", async (event) => {
     const now = new Date();
     const isPast = bookingTab.dataset.bookingTab === "past";
 
-    const filtered = bookings
-      .filter((b) => {
+    const filtered = sortBookingsNewestFirst(
+      bookings.filter((b) => {
         const bookingDate = new Date(`${b.date}T${b.time}`);
 
         return isPast
           ? b.status === "cancelled" || bookingDate < now
           : b.status !== "cancelled" && bookingDate >= now;
       })
-      .sort((a, b) =>
-        `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
-      );
+    );
 
     document.querySelector("#booking-list").innerHTML = filtered.length
       ? filtered.map((b) => renderBookingCard(b)).join("")
