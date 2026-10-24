@@ -215,39 +215,67 @@ async function renderDrummerHome() {
   //document.querySelector("#favorite-room").textContent = favoriteRoom ? favoriteRoom.name : "—";
 }
 
+
 async function renderBookStudio() {
-  const {
-    rooms
-  } = await roomsApi.list();
-  if (selectedBookingId) {
-    const {
-      bookings
-    } = await bookingsApi.list();
-    const editing = bookings.find((b) => Number(b.id) === Number(selectedBookingId));
-    if (editing) {
-      selectedRoomId = Number(editing.roomId);
-      selectedBookingDate = editing.date;
-      selectedBookingTime = editing.time;
-      selectedBookingDuration = Number(editing.duration) || 1;
-    } else selectedBookingId = null;
+  const { rooms } = await roomsApi.list();
+
+  if (selectedBookingId && !isEditingBookingInitialized) {
+    const { bookings } = await bookingsApi.list();
+    const editing = bookings.find(
+      (b) => Number(b.id) === Number(selectedBookingId)
+    );
+
+    if (!editing) {
+      selectedBookingId = null;
+      isEditingBookingInitialized = false;
+      showToast("error", "The booking could not be found.", "Edit failed");
+      await navigate("my-bookings");
+      return;
+    }
+
+    selectedRoomId = Number(editing.roomId);
+    selectedBookingDate = editing.date;
+    selectedBookingTime = editing.time;
+    selectedBookingDuration = Number(editing.duration) || 1;
+    isEditingBookingInitialized = true;
   }
-  if (!selectedRoomId || !rooms.some((r) => r.id === selectedRoomId)) selectedRoomId = rooms[0]?.id ?? null;
+
+  if (!selectedRoomId || !rooms.some((r) => Number(r.id) === selectedRoomId)) {
+    selectedRoomId = rooms.length ? Number(rooms[0].id) : null;
+  }
+
   if (!selectedBookingDate) {
     const now = new Date();
-    selectedBookingDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    selectedBookingDate = new Date(
+      now.getTime() - now.getTimezoneOffset() * 60000
+    ).toISOString().slice(0, 10);
   }
+
   await loadPage("book-studio");
-  document.querySelector("#studio-rooms").innerHTML = rooms.map((room) => `<div class="span-6">${renderRoomCard({ ...room, selected: room.id === selectedRoomId }, true)}</div>`).join("");
-  document.querySelector("#booking-date").min = new Date().toISOString().slice(0, 10);
+
+  document.querySelector("#studio-rooms").innerHTML = rooms
+    .map((room) =>
+      `<div class="span-6">${renderRoomCard({
+        ...room,
+        selected: Number(room.id) === selectedRoomId
+      }, true)}</div>`
+    )
+    .join("");
+
+  document.querySelector("#booking-date").min =
+    new Date().toISOString().slice(0, 10);
   document.querySelector("#booking-date").value = selectedBookingDate;
+
   document.querySelectorAll(".duration-option").forEach((button) => {
     button.classList.toggle(
       "selected",
       Number(button.dataset.duration) === selectedBookingDuration
     );
   });
+
   await updateBookingAvailability();
 }
+
 
 async function updateBookingAvailability() {
   const room = (await roomsApi.list()).rooms.find((r) => r.id === selectedRoomId);
