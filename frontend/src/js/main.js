@@ -346,27 +346,51 @@ async function renderMyBookings() {
 }
 
 
+
 async function renderOwnerDashboard() {
-  const [{
-    bookings
-  }, {
-    rooms
-  }] = await Promise.all([bookingsApi.list(), roomsApi.list()]);
-  const today = new Date().toISOString().slice(0, 10);
-  const todayCount = bookings.filter((b) => b.date === today && b.status !== "cancelled").length;
-  const pending = bookings.filter((b) => b.status === "pending").length;
-  const weekStart = new Date();
-  weekStart.setDate(weekStart.getDate() - 6);
-  weekStart.setHours(0, 0, 0, 0);
-  const revenue = bookings.filter((b) => b.status === "approved" && new Date(`${b.date}T${b.time}`) >= weekStart).reduce((sum, b) => sum + Number(b.total || 0), 0);
+  const [{ bookings }, { rooms }] = await Promise.all([
+    bookingsApi.list(),
+    roomsApi.list()
+  ]);
+
   await loadPage("owner-dashboard");
+
   document.querySelector("#owner-greeting").textContent = `Good day, ${currentUser.name}`;
   document.querySelector("#room-count").textContent = rooms.length;
-  document.querySelector("#recent-bookings").innerHTML = bookings.slice().reverse().slice(0, 8).map((b) => renderBookingCard(b, false, true)).join("") || `<div class="card card-body"><p class="muted">No bookings yet.</p></div>`;
-  //document.querySelector("#today-count").textContent = todayCount;
-  //document.querySelector("#pending-count").textContent = pending;
-  //document.querySelector("#weekly-revenue").textContent = currency(revenue);
+
+  const bookingList = document.querySelector("#recent-bookings");
+  const filterButtons = document.querySelectorAll("[data-owner-booking-filter]");
+
+  function renderFilteredBookings(filter = "all") {
+    const filteredBookings = filter === "all"
+      ? bookings
+      : bookings.filter((booking) => booking.status === filter);
+
+    bookingList.innerHTML = filteredBookings.length
+      ? filteredBookings.map((booking) => renderBookingCard(booking, false, true)).join("")
+      : `<div class="card card-body"><p class="muted">No ${filter === "all" ? "" : `${filter} `}bookings found.</p></div>`;
+  }
+
+  filterButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.ownerBookingFilter === "all");
+  });
+
+  renderFilteredBookings();
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((tab) => {
+        tab.classList.toggle("active", tab === button);
+      });
+
+      renderFilteredBookings(button.dataset.ownerBookingFilter);
+    });
+  });
 }
+
+//document.querySelector("#today-count").textContent = todayCount;
+//document.querySelector("#pending-count").textContent = pending;
+//document.querySelector("#weekly-revenue").textContent = currency(revenue);
 
 async function renderManageBookings() {
   const {
