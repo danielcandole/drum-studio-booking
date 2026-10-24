@@ -599,9 +599,17 @@ document.addEventListener("click", async (event) => {
 
   if (action === "edit-booking") {
     const card = event.target.closest("[data-booking-id]");
-    selectedBookingId = Number(card?.dataset.bookingId);
+    const id = Number(card?.dataset.bookingId);
+
+    if (!id) return;
+
+    selectedBookingId = id;
+    isEditingBookingInitialized = false;
+    selectedRoomId = null;
     selectedBookingDate = "";
     selectedBookingTime = "";
+    selectedBookingDuration = 1;
+
     await navigate("book-studio");
     return;
   }
