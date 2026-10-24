@@ -447,6 +447,36 @@ document.addEventListener("click", async (event) => {
     return;
   }
 
+  const bookingTab = event.target.closest("[data-booking-tab]");
+
+  if (bookingTab) {
+    document.querySelectorAll("[data-booking-tab]").forEach((tab) => {
+      tab.classList.toggle("active", tab === bookingTab);
+    });
+
+    const { bookings } = await bookingsApi.list();
+    const now = new Date();
+    const isPast = bookingTab.dataset.bookingTab === "past";
+
+    const filtered = bookings
+      .filter((b) => {
+        const bookingDate = new Date(`${b.date}T${b.time}`);
+
+        return isPast
+          ? b.status === "cancelled" || bookingDate < now
+          : b.status !== "cancelled" && bookingDate >= now;
+      })
+      .sort((a, b) =>
+        `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
+      );
+
+    document.querySelector("#booking-list").innerHTML = filtered.length
+      ? filtered.map((b) => renderBookingCard(b)).join("")
+      : `<div class="card card-body"><p class="muted">No ${isPast ? "past" : "upcoming"} bookings.</p></div>`;
+
+    return;
+  }
+
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (!action) return;
 
@@ -572,37 +602,6 @@ document.addEventListener("click", async (event) => {
         await navigate("my-bookings");
       });
     }
-    return;
-  }
-
-
-  const bookingTab = event.target.closest("[data-booking-tab]");
-
-  if (bookingTab) {
-    document.querySelectorAll("[data-booking-tab]").forEach((tab) => {
-      tab.classList.toggle("active", tab === bookingTab);
-    });
-
-    const { bookings } = await bookingsApi.list();
-    const now = new Date();
-    const isPast = bookingTab.dataset.bookingTab === "past";
-
-    const filtered = bookings
-      .filter((b) => {
-        const bookingDate = new Date(`${b.date}T${b.time}`);
-
-        return isPast
-          ? b.status === "cancelled" || bookingDate < now
-          : b.status !== "cancelled" && bookingDate >= now;
-      })
-      .sort((a, b) =>
-        `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`)
-      );
-
-    document.querySelector("#booking-list").innerHTML = filtered.length
-      ? filtered.map((b) => renderBookingCard(b)).join("")
-      : `<div class="card card-body"><p class="muted">No ${isPast ? "past" : "upcoming"} bookings.</p></div>`;
-
     return;
   }
 
