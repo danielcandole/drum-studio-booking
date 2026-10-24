@@ -543,6 +543,7 @@ document.addEventListener("click", async (event) => {
       }, async () => {
         selectedBookingId = null;
         selectedBookingTime = "";
+        selectedBookingDuration = 1;
         await navigate("my-bookings");
       });
     } else {
@@ -553,6 +554,7 @@ document.addEventListener("click", async (event) => {
         duration: selectedBookingDuration
       }, async () => {
         selectedBookingTime = "";
+        selectedBookingDuration = 1;
         await navigate("my-bookings");
       });
     }
