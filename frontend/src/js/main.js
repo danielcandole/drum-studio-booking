@@ -44,6 +44,7 @@ let selectedBookingId = null;
 let selectedBookingDate = "";
 let selectedBookingTime = "";
 let selectedBookingDuration = 1;
+let isEditingBookingInitialized = false;
 
 async function loadSharedComponents() {
   const [navbarTemplate, footerTemplate, modalTemplate] = await Promise.all([
