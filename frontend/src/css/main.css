@@ -488,7 +488,6 @@ h3 {
   position: fixed;
   z-index: 200;
   top: 20px;
-  right: var(--space-md);
   display: grid;
   width: min(400px, 100% - 32px);
   gap: var(--space-sm);
@@ -500,7 +499,6 @@ h3 {
   gap: var(--space-md);
   padding: var(--space-md);
   background: var(--color-surface);
-  border-top: 5px solid var(--color-primary);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-lg);
   animation: slide-in 240ms ease-out;
