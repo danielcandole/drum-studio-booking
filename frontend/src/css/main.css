@@ -520,6 +520,18 @@ h3 {
 .toast .toastTitle-info {
   color: var(--color-accent);
 }
+.toast [class*=toastIcon-] {
+  font-size: 1.125rem;
+}
+.toast .toastIcon-success {
+  color: var(--color-success);
+}
+.toast .toastIcon-error {
+  color: var(--color-error);
+}
+.toast .toastIcon-info {
+  color: var(--color-accent);
+}
 
 .tabs {
   display: inline-flex;

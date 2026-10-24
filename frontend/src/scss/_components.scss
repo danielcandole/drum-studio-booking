@@ -335,6 +335,22 @@
       color: var(--color-accent);
     }
   }
+
+  [class*="toastIcon-"] {
+    font-size: 1.125rem;
+  }
+
+  .toastIcon-success {
+    color: var(--color-success);
+  }
+
+  .toastIcon-error {
+    color: var(--color-error);
+  }
+
+  .toastIcon-info {
+    color: var(--color-accent);
+  }
 }
 
 .tabs {

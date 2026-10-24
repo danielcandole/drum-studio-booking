@@ -10,7 +10,7 @@ export function showToast(type, message, title = "") {
   toast.className = `toast toast-${type}`;
 
   toast.innerHTML = `
-    <i class="fa-solid fa-${icons[type] || icons.info}" aria-hidden="true"></i>
+    <i class="fa-solid fa-${icons[type] || icons.info} toastIcon-${type}" aria-hidden="true"></i>
     <div class="toastTitle">
       <strong class="toastTitle-${type}">${title || (type === "success" ? "Success" : type === "error" ? "Error" : "Notice")}</strong>
       <p>${message}</p>
