@@ -97,14 +97,6 @@
       "capacity": 2,
       "equipment": "Yamaha Stage Custom, headphones",
       "image": "https://images.unsplash.com/photo-1731003163686-040d11411c18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
-    },
-    {
-      "id": 4,
-      "name": "The Live Room 102",
-      "price": 200,
-      "capacity": 20,
-      "equipment": "Full Drums",
-      "image": "https://imgs.search.brave.com/O-GQ9LQP8Yre6yBYv_BG-O6sXU-GSy9bXjLx_wBte0E/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJlL2Zl/L2E0LzJlZmVhNDBh/YmFjZmI4NWM0M2Ji/NzdhMzE2YzJkY2Ji/LmpwZw"
     }
   ],
   "bookings": [
@@ -152,6 +144,11 @@
       "token": "cef2a8f6f4a08c0c1ab8eda9b1572c8fe4ae3c807f3ccc08ae16909d0526556f",
       "userId": 8,
       "createdAt": "2026-10-24T07:40:48.861Z"
+    },
+    {
+      "token": "4f077ad88d8e1ccf7fe27fddea0a89fa6c65b399882cfa6f3977e708ca6a6362",
+      "userId": 7,
+      "createdAt": "2026-10-24T07:45:03.891Z"
     }
   ]
 }
