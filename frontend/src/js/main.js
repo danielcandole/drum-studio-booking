@@ -537,37 +537,24 @@ document.addEventListener("click", async (event) => {
     }, refreshCurrentRoute);
     return;
   }
+
   if (action === "edit-owner-booking") {
     const row = event.target.closest("[data-booking-id]");
     const id = Number(row?.dataset.bookingId);
+
     if (!id) return;
-    try {
-      const {
-        bookings
-      } = await bookingsApi.list();
-      const booking = bookings.find((item) => Number(item.id) === id);
-      if (!booking) return;
-      const date = window.prompt("Booking date (YYYY-MM-DD):", booking.date);
-      if (date === null) return;
-      const time = window.prompt("Booking start time (HH:MM):", booking.time);
-      if (time === null) return;
-      const {
-        rooms
-      } = await roomsApi.list();
-      const roomList = rooms.map((room) => `${room.id}: ${room.name}`).join("\n");
-      const roomIdInput = window.prompt(`Room ID:\n${roomList}`, String(booking.roomId));
-      if (roomIdInput === null) return;
-      await updateBooking(id, {
-        date: date.trim(),
-        time: time.trim(),
-        roomId: Number(roomIdInput),
-        duration: Number(booking.duration || 1),
-      }, refreshCurrentRoute);
-    } catch (error) {
-      showToast("error", error.message, "Booking edit failed");
-    }
+
+    selectedBookingId = id;
+    isEditingBookingInitialized = false;
+    selectedRoomId = null;
+    selectedBookingDate = "";
+    selectedBookingTime = "";
+    selectedBookingDuration = 1;
+
+    await navigate("book-studio");
     return;
   }
+
 
   if (action === "delete-room") {
     const card = event.target.closest("[data-room-id]");
