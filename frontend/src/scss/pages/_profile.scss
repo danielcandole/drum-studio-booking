@@ -1,0 +1,19 @@
+.profile-avatar {
+  display: grid;
+  width: 92px;
+  height: 92px;
+  margin-bottom: var(--space-md);
+  place-items: center;
+  color: var(--color-surface);
+  background: var(--color-accent);
+  border-radius: 50%;
+  font-size: 32px;
+}
+
+.danger-zone {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-error-soft);
+  border: 1px solid #f4b4b4;
+  border-radius: var(--radius-md);
+}

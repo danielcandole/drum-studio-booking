@@ -1,0 +1,53 @@
+.auth-page {
+  display: grid;
+  min-height: calc(100vh - 72px);
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 820px) {
+    display: block;
+  }
+}
+
+.auth-visual {
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  padding: var(--space-2xl);
+  color: var(--color-surface);
+  background:
+    linear-gradient(rgba(15, 15, 15, 0.55), rgba(15, 15, 15, 0.8)),
+    url("https://images.unsplash.com/photo-1544140119-e0ad950faf9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200")
+      center / cover;
+  display: flex;
+  align-items: flex-end;
+
+  blockquote {
+    max-width: 480px;
+    margin: 0;
+    font-size: var(--font-size-subheading);
+    font-weight: 700;
+  }
+
+  @media (max-width: 820px) {
+    min-height: 260px;
+  }
+}
+
+.auth-panel {
+  display: grid;
+  padding: var(--space-2xl);
+  place-items: center;
+  background: var(--color-surface);
+
+  @media (max-width: 820px) {
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+
+.auth-form {
+  width: min(100%, 460px);
+
+  .btn {
+    width: 100%;
+  }
+}
