@@ -34,6 +34,7 @@ export async function handleAuth(form, navigate) {
     );
 
     await navigate(result.user.role === "owner" ? "owner-dashboard" : "drummer-home");
+    window.location.reload();
   } catch (error) {
     showToast("error", error.message, register ? "Registration failed" : "Login failed");
     button.disabled = false;
