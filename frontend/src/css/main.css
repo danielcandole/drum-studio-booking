@@ -505,17 +505,20 @@ h3 {
   box-shadow: var(--shadow-lg);
   animation: slide-in 240ms ease-out;
 }
-.toast-success {
-  border-right-color: var(--color-success);
+.toast .toastTitle strong {
+  display: block;
 }
-.toast-error {
-  border-right-color: var(--color-error);
-}
-.toast-info {
-  border-right-color: var(--color-accent);
-}
-.toast p {
+.toast .toastTitle p {
   margin: 0;
+}
+.toast .toastTitle-success {
+  color: var(--color-success);
+}
+.toast .toastTitle-error {
+  color: var(--color-error);
+}
+.toast .toastTitle-info {
+  color: var(--color-accent);
 }
 
 .tabs {

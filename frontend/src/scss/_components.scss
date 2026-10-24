@@ -314,22 +314,29 @@
   box-shadow: var(--shadow-lg);
   animation: slide-in 240ms ease-out;
 
-  &-success {
-    border-right-color: var(--color-success);
-  }
+  .toastTitle {
+    strong {
+      display: block;
+    }
 
-  &-error {
-    border-right-color: var(--color-error);
-  }
+    p {
+      margin: 0;
+    }
 
-  &-info {
-    border-right-color: var(--color-accent);
-  }
+    &-success {
+      color: var(--color-success);
+    }
 
-  p {
-    margin: 0;
+    &-error {
+      color: var(--color-error);
+    }
+
+    &-info {
+      color: var(--color-accent);
+    }
   }
 }
+
 .tabs {
   display: inline-flex;
   margin-bottom: var(--space-lg);
