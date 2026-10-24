@@ -72,3 +72,32 @@
     border-color: var(--color-accent);
   }
 }
+
+
+.booking-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
+
+  .booking-tab {
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+    &:hover {
+      border-color: var(--color-primary);
+      color: var(--text-primary);
+    }
+
+    &.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: white;
+    }
+  }
+}
