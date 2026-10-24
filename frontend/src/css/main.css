@@ -714,12 +714,11 @@ h3 {
   min-width: 0;
   background: var(--color-surface);
 }
-
-.auth-form {
+.auth-panel .auth-form {
   width: min(100%, 460px);
   margin: 0 auto;
 }
-.auth-form .btn {
+.auth-panel .auth-form .btn {
   width: 100%;
 }
 
