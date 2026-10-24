@@ -296,7 +296,7 @@
 .toast-region {
   position: fixed;
   z-index: 200;
-  top: 88px;
+  top: 20px;
   right: var(--space-md);
   display: grid;
   width: min(400px, calc(100% - 32px));
