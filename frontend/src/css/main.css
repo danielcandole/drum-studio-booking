@@ -575,6 +575,7 @@ h3 {
 }
 
 .footer {
+  margin-top: auto;
   padding: var(--space-2xl) 0;
   color: #cfcfcf;
   background: var(--color-primary);
