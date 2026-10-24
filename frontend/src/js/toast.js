@@ -6,6 +6,8 @@ export function showToast(type, message, title = "") {
     info: "circle-info"
   };
 
+  root.querySelectorAll(".toast").forEach(toast => toast.remove());
+
   const toast = document.createElement("div");
   toast.className = `toast toast-${type}`;
 
