@@ -712,7 +712,7 @@ h3 {
 .auth-panel {
   flex: 1;
   min-width: 0;
-  padding: var(--space-2xl);
+  padding: 40px 0 0 0;
   background: var(--color-surface);
 }
 
