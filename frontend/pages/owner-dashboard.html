@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">Owner Dashboard</span>
+            <h1 id="owner-greeting">Good day</h1>
+            <p class="muted">Here’s what’s happening across your studios today.</p>
+          </div>
+          <button class="btn" data-route="manage-rooms"><i class="fa-solid fa-plus"></i>Add Room</button>
+        </div>
+        <div class="grid">
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-calendar-day"></i></div>
+            <div>
+              <p class="stat-value" id="today-count">0</p>
+              <span class="muted">Today's bookings</span>
+            </div>
+          </div>
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <p class="stat-value" id="pending-count">0</p>
+              <span class="muted">Pending approval</span>
+            </div>
+          </div>
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-peso-sign"></i></div>
+            <div>
+              <p class="stat-value" id="weekly-revenue">₱0</p>
+              <span class="muted">Revenue this week</span>
+            </div>
+          </div>
+        </div>
+        <div class="page-heading" style="margin-top: var(--space-xl)">
+          <div>
+            <h2>Recent bookings</h2>
+            <p class="muted"><span id="room-count">0</span> studio rooms configured.</p>
+          </div>
+          <button class="btn btn-secondary btn-small" data-route="manage-bookings">
+            View all <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        <div id="recent-bookings"></div>
+      </div>
+    </section>
+  </body>
+</html>

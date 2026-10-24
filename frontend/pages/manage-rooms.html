@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">Studio setup</span>
+            <h1>Manage Rooms</h1>
+            <p class="muted">Keep your spaces and equipment up to date.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="span-5">
+            <form class="card card-body sticky-panel" id="room-form" novalidate>
+              <h2 id="room-form-heading"><i class="fa-solid fa-plus"></i> Add Room</h2>
+              <div class="form-group">
+                <label for="room-name">Room name</label
+                ><input class="input" id="room-name" required placeholder="e.g. The Live Room" />
+              </div>
+              <div class="grid">
+                <div class="span-6">
+                  <div class="form-group">
+                    <label for="price">Price per hour</label
+                    ><input class="input" id="price" type="number" min="0" step="0.01" required placeholder="₱25" />
+                  </div>
+                </div>
+                <div class="span-6">
+                  <div class="form-group">
+                    <label for="capacity">Capacity</label
+                    ><input class="input" id="capacity" type="number" min="1" required placeholder="4" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="equipment">Equipment</label><textarea class="textarea" id="equipment" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="photo">Room photo URL</label><input class="input" id="photo" placeholder="https://..." />
+              </div>
+              <div class="btn-row">
+                <button class="btn" id="save-room" type="submit"><i class="fa-solid fa-floppy-disk"></i>Add Room</button
+                ><button
+                  class="btn btn-secondary"
+                  id="cancel-room-edit"
+                  type="button"
+                  data-action="cancel-room-edit"
+                  hidden
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="span-7">
+            <h2>
+              Your rooms <span class="muted">(<span id="rooms-count">0</span>)</span>
+            </h2>
+            <div class="grid" id="managed-rooms"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

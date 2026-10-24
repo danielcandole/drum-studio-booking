@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">Book a studio</span>
+            <h1>Find your perfect session</h1>
+            <p class="muted">Choose a room, date, and available time.</p>
+          </div>
+          <span class="badge badge-confirmed"><i class="fa-solid fa-circle-check"></i>Live availability</span>
+        </div>
+        <div class="grid booking-layout">
+          <div class="span-8">
+            <h2>1. Choose a Studio Room</h2>
+            <div class="grid" id="studio-rooms"></div>
+            <h2 style="margin-top: var(--space-xl)">2. Choose a date</h2>
+            <div class="card card-body">
+              <div class="form-group">
+                <label for="booking-date">Date</label><input class="input" id="booking-date" type="date" />
+              </div>
+            </div>
+            <h2 style="margin-top: var(--space-xl)">3. Pick a time</h2>
+            <div class="card card-body">
+              <div class="time-slots" id="time-slots"><p class="muted">Loading availability...</p></div>
+            </div>
+          </div>
+          <aside class="span-4 sticky-panel">
+            <div class="card card-body" id="booking-summary"><p class="muted">Loading...</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

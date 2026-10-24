@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="welcome-banner">
+          <span class="eyebrow" id="next-session-eyebrow">Your studio</span>
+          <h1 id="welcome-title">Ready to make some noise!</h1>
+          <p id="welcome-description">You have no upcoming sessions yet.</p>
+          <button class="btn" data-route="book-studio"><i class="fa-solid fa-plus"></i>Book a Studio</button>
+        </div>
+        <div class="section-heading" style="margin-top: var(--space-xl)">
+          <h2>Up next</h2>
+          <p class="muted">Everything you need for your upcoming session.</p>
+        </div>
+        <div id="next-booking">
+          <div class="card card-body"><p class="muted">No upcoming bookings.</p></div>
+        </div>
+        <div class="grid" style="margin-top: var(--space-xl)">
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <div>
+              <p class="stat-value" id="completed-count">0</p>
+              <span class="muted">Completed sessions</span>
+            </div>
+          </div>
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-drum"></i></div>
+            <div>
+              <p class="stat-value" id="practice-hours">0h</p>
+              <span class="muted">Booked practice time</span>
+            </div>
+          </div>
+          <div class="span-4 card stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-heart"></i></div>
+            <div>
+              <p class="stat-value" id="favorite-room">—</p>
+              <span class="muted">Favorite room</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

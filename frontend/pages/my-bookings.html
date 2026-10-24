@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">My Bookings</span>
+            <h1>Your sessions</h1>
+            <p class="muted">Review, reschedule, or cancel your studio time.</p>
+          </div>
+          <button class="btn" data-route="book-studio"><i class="fa-solid fa-plus"></i>New Booking</button>
+        </div>
+        <div class="tabs">
+          <button class="tab active" data-booking-tab="upcoming">Upcoming <span id="upcoming-count">(0)</span></button
+          ><button class="tab" data-booking-tab="past">Past <span id="past-count">(0)</span></button>
+        </div>
+        <div id="booking-list"></div>
+      </div>
+    </section>
+  </body>
+</html>

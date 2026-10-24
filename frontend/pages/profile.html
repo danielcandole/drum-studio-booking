@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeatBase</title>
+  </head>
+  <body>
+    <section class="page">
+      <div class="container">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">Account</span>
+            <h1>Your profile</h1>
+            <p class="muted">Update your personal details and account settings.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <aside class="span-4">
+            <div class="card card-body">
+              <div class="profile-avatar" id="profile-avatar"></div>
+              <h2 id="profile-display-name"></h2>
+              <p class="muted" id="profile-member-info"></p>
+              <div class="summary-line"><span>Bookings</span><strong id="profile-booking-count">0</strong></div>
+              <div class="summary-line">
+                <span>Status</span
+                ><span class="badge badge-confirmed"><i class="fa-solid fa-circle-check"></i>Active</span>
+              </div>
+            </div>
+          </aside>
+          <div class="span-8">
+            <form class="card card-body" id="profile-form">
+              <h2>Edit profile</h2>
+              <div class="grid">
+                <div class="span-6">
+                  <div class="form-group">
+                    <label for="profile-name">Full name</label><input class="input" id="profile-name" required />
+                  </div>
+                </div>
+                <div class="span-6">
+                  <div class="form-group">
+                    <label for="profile-email">Email address</label
+                    ><input class="input" id="profile-email" type="email" required />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="profile-phone">Phone number</label><input class="input" id="profile-phone" />
+              </div>
+              <button class="btn" type="submit"><i class="fa-solid fa-floppy-disk"></i>Save Changes</button>
+            </form>
+            <div class="danger-zone">
+              <h2>Delete my account</h2>
+              <p>This removes your profile and cancels your active booking history. This action cannot be undone.</p>
+              <button class="btn btn-danger" data-action="delete-account">
+                <i class="fa-solid fa-trash"></i>Delete my account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
