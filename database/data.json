@@ -195,8 +195,8 @@
       "date": "2026-10-31",
       "time": "10:00",
       "duration": 1,
-      "status": "pending",
-      "payment": "Pending",
+      "status": "approved",
+      "payment": "Paid",
       "createdAt": "2026-10-24T08:57:06.190Z"
     }
   ],
