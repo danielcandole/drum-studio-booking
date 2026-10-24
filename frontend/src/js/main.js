@@ -288,6 +288,9 @@ async function updateBookingAvailability() {
     const unavailable = booked.has(time);
     return `<button class="time-slot ${selectedBookingTime === time ? "selected" : ""}" data-time="${time}" ${unavailable ? "disabled" : ""}>${labels[time]}${unavailable ? "<br><small>Booked</small>" : ""}</button>`;
   }).join("") || `<p class="muted">No times available.</p>`;
+
+  renderDurationOptions();
+
   document.querySelector("#booking-summary").innerHTML = `
     <span class="eyebrow">Booking summary</span>
     <h2>${escapeHtml(room.name)}</h2>
