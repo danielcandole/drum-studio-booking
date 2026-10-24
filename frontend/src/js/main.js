@@ -308,10 +308,10 @@ async function renderOwnerDashboard() {
   await loadPage("owner-dashboard");
   document.querySelector("#owner-greeting").textContent = `Good day, ${currentUser.name}`;
   document.querySelector("#today-count").textContent = todayCount;
-  document.querySelector("#pending-count").textContent = pending;
+  //document.querySelector("#pending-count").textContent = pending;
   //document.querySelector("#weekly-revenue").textContent = currency(revenue);
   //document.querySelector("#room-count").textContent = rooms.length;
-  //document.querySelector("#recent-bookings").innerHTML = bookings.slice().reverse().slice(0, 8).map((b) => renderBookingCard(b, false, true)).join("") || `<div class="card card-body"><p class="muted">No bookings yet.</p></div>`;
+  document.querySelector("#recent-bookings").innerHTML = bookings.slice().reverse().slice(0, 8).map((b) => renderBookingCard(b, false, true)).join("") || `<div class="card card-body"><p class="muted">No bookings yet.</p></div>`;
 }
 
 async function renderManageBookings() {
