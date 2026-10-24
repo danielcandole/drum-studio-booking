@@ -30,6 +30,8 @@
 .auth-panel {
   flex: 1;
   min-width: 0;
+  padding: var(--space-2xl);
+  background: var(--color-surface);
 }
 
 .auth-form {
