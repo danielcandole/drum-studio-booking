@@ -41,7 +41,14 @@
             </div>
           </div>
           <aside class="span-4 sticky-panel">
-            <div class="card card-body" id="booking-summary"><p class="muted">Loading...</p></div>
+            <div class="summary-line">
+              <span>Duration</span>
+              <strong>${selectedBookingDuration} ${selectedBookingDuration === 1 ? "hour" : "hours"}</strong>
+            </div>
+            <div class="summary-line summary-total">
+              <span>Total</span>
+              <span>${currency(Number(room.price) * selectedBookingDuration)}</span>
+            </div>
           </aside>
         </div>
       </div>
