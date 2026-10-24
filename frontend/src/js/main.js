@@ -114,12 +114,12 @@ function renderNav() {
     ["owner-dashboard", "Dashboard"],
     ["manage-bookings", "Manage Bookings"],
     ["manage-rooms", "Rooms"],
-    ["profile", "Profile"],
+    //["profile", "Profile"],
   ] : [
     ["drummer-home", "Home"],
     ["book-studio", "Book Studio"],
     ["my-bookings", "My Bookings"],
-    ["profile", "Profile"],
+    //["profile", "Profile"],
   ];
 
   nav.innerHTML = `

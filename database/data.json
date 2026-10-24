@@ -107,8 +107,8 @@
       "date": "2026-10-08",
       "time": "16:00",
       "duration": 1,
-      "status": "approved",
-      "payment": "Paid",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-05T10:00:00+08:00"
     },
     {
@@ -118,8 +118,8 @@
       "date": "2026-10-10",
       "time": "18:00",
       "duration": 1,
-      "status": "pending",
-      "payment": "Pending",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-05T11:00:00+08:00"
     },
     {
