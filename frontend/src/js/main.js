@@ -43,6 +43,7 @@ let selectedRoomId = null;
 let selectedBookingId = null;
 let selectedBookingDate = "";
 let selectedBookingTime = "";
+let selectedBookingDuration = 1;
 
 async function loadSharedComponents() {
   const [navbarTemplate, footerTemplate, modalTemplate] = await Promise.all([
@@ -238,6 +239,24 @@ async function renderBookStudio() {
   document.querySelector("#booking-date").min = new Date().toISOString().slice(0, 10);
   document.querySelector("#booking-date").value = selectedBookingDate;
   await updateBookingAvailability();
+}
+
+function renderDurationOptions() {
+  const container = document.querySelector("#duration-options");
+  if (!container) return;
+
+  const durations = [1, 2, 3, 4];
+
+  container.innerHTML = durations.map((duration) => `
+    <button
+      type="button"
+      class="duration-option ${selectedBookingDuration === duration ? "selected" : ""}"
+      data-duration="${duration}"
+      aria-pressed="${selectedBookingDuration === duration}"
+    >
+      ${duration} ${duration === 1 ? "hour" : "hours"}
+    </button>
+  `).join("");
 }
 
 async function updateBookingAvailability() {
