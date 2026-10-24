@@ -48,3 +48,27 @@
   font-size: 19px;
   font-weight: 800;
 }
+
+
+.duration-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-sm);
+}
+
+.duration-option {
+  min-height: 52px;
+  padding: var(--space-sm);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+
+  &.selected {
+    color: var(--color-surface);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
