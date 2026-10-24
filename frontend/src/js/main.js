@@ -369,22 +369,17 @@ async function renderOwnerDashboard() {
   const bookingList = document.querySelector("#recent-bookings");
   const filterButtons = document.querySelectorAll("[data-owner-booking-filter]");
 
-
   function renderFilteredBookings(filter = "all") {
-    const filteredBookings = (filter === "all"
-      ? bookings
-      : bookings.filter((booking) => booking.status === filter))
-      .sort((a, b) => {
-        const dateA = `${a.date}T${a.time}`;
-        const dateB = `${b.date}T${b.time}`;
-        return dateB.localeCompare(dateA);
-      });
+    const filteredBookings = sortBookingsNewestFirst(
+      filter === "all"
+        ? bookings
+        : bookings.filter((booking) => booking.status === filter)
+    );
 
     bookingList.innerHTML = filteredBookings.length
       ? filteredBookings.map((booking) => renderBookingCard(booking, false, true)).join("")
       : `<div class="card card-body"><p class="muted">No ${filter === "all" ? "" : `${filter} `}bookings found.</p></div>`;
   }
-
 
   filterButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.ownerBookingFilter === "all");
