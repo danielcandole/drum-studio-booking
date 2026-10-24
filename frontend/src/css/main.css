@@ -488,6 +488,8 @@ h3 {
   position: fixed;
   z-index: 200;
   top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: grid;
   width: min(400px, 100% - 32px);
   gap: var(--space-sm);
