@@ -539,7 +539,7 @@ document.addEventListener("click", async (event) => {
         roomId: selectedRoomId,
         date: selectedBookingDate,
         time: selectedBookingTime,
-        duration: 1
+        duration: selectedBookingDuration
       }, async () => {
         selectedBookingId = null;
         selectedBookingTime = "";
@@ -550,7 +550,7 @@ document.addEventListener("click", async (event) => {
         roomId: selectedRoomId,
         date: selectedBookingDate,
         time: selectedBookingTime,
-        duration: 1
+        duration: selectedBookingDuration
       }, async () => {
         selectedBookingTime = "";
         await navigate("my-bookings");
