@@ -711,12 +711,15 @@ h3 {
 }
 
 .auth-panel {
+  display: flex;
   flex: 0 0 50%;
+  justify-content: center;
+  align-items: center;
   min-width: 0;
 }
 .auth-panel .auth-form {
   width: min(100%, 460px);
-  margin: 0 auto;
+  margin: 0;
 }
 .auth-panel .auth-form .btn {
   width: 100%;
