@@ -222,6 +222,10 @@ h3 {
     flex-direction: column;
   }
 }
+#app {
+  flex: 1;
+}
+
 .navbar {
   position: sticky;
   z-index: 50;
