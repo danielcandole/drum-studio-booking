@@ -105,7 +105,7 @@ function renderNav() {
     nav.innerHTML = `
       <button class="nav-link ${currentRoute === "landing" ? "active" : ""}" data-route="landing">Home</button>
       <button class="nav-link ${currentRoute === "login" ? "active" : ""}" data-route="login">Login</button>
-      <button class="btn btn-small" data-route="register">Register</button>
+      <button class="nav-link ${currentRoute === "register" ? "active" : ""}" data-route="register">Register</button>
     `;
     return;
   }
