@@ -44,6 +44,15 @@
       "role": "drummer",
       "phone": "",
       "createdAt": "2026-10-24T06:19:42.920Z"
+    },
+    {
+      "id": 6,
+      "name": "James",
+      "email": "james12@gmail.com",
+      "password": "$2a$10$N9XvMYANEJxrhthhroLTY.7nKVclu37.3ErJal7pugUrT7/ZDqX.S",
+      "role": "drummer",
+      "phone": "",
+      "createdAt": "2026-10-24T07:27:16.150Z"
     }
   ],
   "rooms": [
@@ -112,6 +121,11 @@
       "token": "bafbe260dd3bced9935366794b94ec40a89d98526fc3450c887b4cbec7b2619c",
       "userId": 1,
       "createdAt": "2026-10-24T05:18:43.476Z"
+    },
+    {
+      "token": "e9bff04b48ebc74b4d6251981efd2af28aef4e8f3d6d61f6b99abf60aba0a45e",
+      "userId": 6,
+      "createdAt": "2026-10-24T07:27:16.150Z"
     }
   ]
 }
