@@ -576,11 +576,14 @@ document.addEventListener("click", async (event) => {
     await navigate("book-studio");
     return;
   }
-  
+
+
   if (action === "confirm-booking") {
     const button = event.target.closest("#confirm-booking");
+
     if (!button || !selectedRoomId || !selectedBookingDate || !selectedBookingTime) return;
-    if (selectedBookingId && !selectedBookingDate) {
+
+    if (selectedBookingId) {
       await updateBooking(selectedBookingId, {
         roomId: selectedRoomId,
         date: selectedBookingDate,
@@ -588,8 +591,10 @@ document.addEventListener("click", async (event) => {
         duration: selectedBookingDuration
       }, async () => {
         selectedBookingId = null;
+        selectedBookingDate = "";
         selectedBookingTime = "";
         selectedBookingDuration = 1;
+        selectedRoomId = null;
         await navigate("my-bookings");
       });
     } else {
@@ -599,13 +604,17 @@ document.addEventListener("click", async (event) => {
         time: selectedBookingTime,
         duration: selectedBookingDuration
       }, async () => {
+        selectedBookingDate = "";
         selectedBookingTime = "";
         selectedBookingDuration = 1;
+        selectedRoomId = null;
         await navigate("my-bookings");
       });
     }
+
     return;
   }
+
 
 });
 
