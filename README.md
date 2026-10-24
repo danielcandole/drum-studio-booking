@@ -1,4 +1,4 @@
-# BeatBase — Drum Studio Booking System
+# BeatBase Drum Studio Booking System 2026
 
 A prototype drum-studio booking application built with **HTML, SCSS, vanilla JS, and Node.js**.
 
