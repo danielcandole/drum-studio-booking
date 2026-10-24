@@ -402,6 +402,14 @@ document.addEventListener("click", async (event) => {
     return;
   }
 
+const timeSlot = event.target.closest(".time-slot:not(:disabled)");
+
+if (timeSlot) {
+  console.log("Selected time:", timeSlot.dataset.time);
+  selectedBookingTime = timeSlot.dataset.time;
+  await updateBookingAvailability();
+}
+
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (!action) return;
 
@@ -527,14 +535,6 @@ document.addEventListener("click", async (event) => {
     }
     return;
   }
-
-const timeSlot = event.target.closest(".time-slot:not(:disabled)");
-
-if (timeSlot) {
-  console.log("Selected time:", timeSlot.dataset.time);
-  selectedBookingTime = timeSlot.dataset.time;
-  await updateBookingAvailability();
-}
 
   const bookingTab = event.target.closest("[data-booking-tab]");
   if (bookingTab) {
