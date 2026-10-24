@@ -571,14 +571,16 @@ document.addEventListener("click", async (event) => {
   if (action === "edit-booking") {
     const card = event.target.closest("[data-booking-id]");
     selectedBookingId = Number(card?.dataset.bookingId);
+    selectedBookingDate = "";
+    selectedBookingTime = "";
     await navigate("book-studio");
     return;
   }
-
+  
   if (action === "confirm-booking") {
     const button = event.target.closest("#confirm-booking");
     if (!button || !selectedRoomId || !selectedBookingDate || !selectedBookingTime) return;
-    if (selectedBookingId) {
+    if (selectedBookingId && !selectedBookingDate) {
       await updateBooking(selectedBookingId, {
         roomId: selectedRoomId,
         date: selectedBookingDate,
