@@ -333,14 +333,18 @@ async function renderMyBookings() {
   const { bookings } = await bookingsApi.list();
   const now = new Date();
 
-  const upcoming = bookings.filter((b) =>
-    b.status !== "cancelled" &&
-    new Date(`${b.date}T${b.time}`) >= now
+  const upcoming = sortBookingsNewestFirst(
+    bookings.filter((b) =>
+      b.status !== "cancelled" &&
+      new Date(`${b.date}T${b.time}`) >= now
+    )
   );
 
-  const past = bookings.filter((b) =>
-    b.status === "cancelled" ||
-    new Date(`${b.date}T${b.time}`) < now
+  const past = sortBookingsNewestFirst(
+    bookings.filter((b) =>
+      b.status === "cancelled" ||
+      new Date(`${b.date}T${b.time}`) < now
+    )
   );
 
   await loadPage("my-bookings");
