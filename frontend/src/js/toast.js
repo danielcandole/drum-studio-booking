@@ -8,5 +8,5 @@ export function showToast(type, message, title = "") {
     <div><strong>${title || (type === "success" ? "Success" : "Notice")}</strong><p>${message}</p></div>
   `;
   root.append(toast);
-  setTimeout(() => toast.remove(), 4200);
+  // setTimeout(() => toast.remove(), 4200);
 }
