@@ -248,24 +248,6 @@ async function renderBookStudio() {
   await updateBookingAvailability();
 }
 
-function renderDurationOptions() {
-  const container = document.querySelector("#duration-options");
-  if (!container) return;
-
-  const durations = [1, 2, 3, 4];
-
-  container.innerHTML = durations.map((duration) => `
-    <button
-      type="button"
-      class="duration-option ${selectedBookingDuration === duration ? "selected" : ""}"
-      data-duration="${duration}"
-      aria-pressed="${selectedBookingDuration === duration}"
-    >
-      ${duration} ${duration === 1 ? "hour" : "hours"}
-    </button>
-  `).join("");
-}
-
 async function updateBookingAvailability() {
   const room = (await roomsApi.list()).rooms.find((r) => r.id === selectedRoomId);
   if (!room) return;
@@ -436,6 +418,19 @@ document.addEventListener("click", async (event) => {
   if (timeSlot) {
     selectedBookingTime = timeSlot.dataset.time;
     await updateBookingAvailability();
+  }
+
+  const durationOption = event.target.closest(".duration-option:not(:disabled)");
+
+  if (durationOption) {
+    selectedBookingDuration = Number(durationOption.dataset.duration);
+
+    document.querySelectorAll(".duration-option").forEach((button) => {
+      button.classList.toggle("selected", button === durationOption);
+    });
+
+    await updateBookingAvailability();
+    return;
   }
 
   const action = event.target.closest("[data-action]")?.dataset.action;
