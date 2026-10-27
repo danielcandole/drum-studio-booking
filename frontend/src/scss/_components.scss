@@ -22,7 +22,8 @@
   gap: 10px;
   color: var(--color-surface);
   font-size: 19px;
-  font-weight: 800;
+  font-family: var(--font-family);
+  font-weight: 700;
   text-decoration: none;
 
   &-mark {
@@ -52,7 +53,10 @@
   background: transparent;
   border: 0;
   border-radius: var(--radius-sm);
-  font-weight: 700;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
   cursor: pointer;
 
   &:hover,
@@ -99,9 +103,11 @@
   background: var(--color-accent);
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: var(--font-size-body);
+  font-family: var(--font-family);
+  font-size: 15px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1;
+  letter-spacing: 0.1px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -198,8 +204,10 @@
   gap: 6px;
   padding: 5px 9px;
   border-radius: 999px;
-  font-size: var(--font-size-caption);
-  font-weight: 700;
+  font-family: var(--font-family-caption);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
 
   &-confirmed {
     color: var(--color-success);
@@ -223,7 +231,10 @@
   label {
     display: block;
     margin-bottom: 6px;
-    font-weight: 700;
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
   }
 }
 
@@ -237,6 +248,10 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
   outline: none;
 
   &:focus {
@@ -260,7 +275,10 @@
   display: block;
   margin-top: var(--space-xs);
   color: var(--color-error);
-  font-size: var(--font-size-caption);
+  font-family: var(--font-family-caption);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .modal-overlay {
@@ -368,7 +386,11 @@
   background: transparent;
   border: 0;
   border-radius: 6px;
+  font-family: var(--font-family);
+  font-size: 14px;
   font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
   cursor: pointer;
 
   &.active {
@@ -408,7 +430,9 @@
 
   p {
     margin: 0;
-    font-size: var(--font-size-caption);
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 
@@ -423,4 +447,62 @@
   to {
     background-position-x: -200%;
   }
+}
+
+// Typography roles
+.nav-link {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.btn,
+.tab,
+.booking-tab {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
+}
+
+.badge {
+  font-family: var(--font-family-caption);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.form-group label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.input,
+.select,
+.textarea,
+.role-switcher select {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.error-text {
+  font-family: var(--font-family-caption);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tabs .tab,
+.booking-tabs .booking-tab {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
 }
