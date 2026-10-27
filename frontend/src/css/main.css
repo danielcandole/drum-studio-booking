@@ -15,12 +15,14 @@
   --color-error-soft: #ffebee;
   --color-warning: #a94800;
   --color-warning-soft: #fff3e0;
-  --font-family: Arial, sans-serif;
+  --font-family: "Plus Jakarta Sans", sans-serif;
+  --font-family-heading: "Manrope", sans-serif;
+  --font-family-caption: "Inter", sans-serif;
   --font-size-caption: 13px;
   --font-size-body: 16px;
-  --font-size-subheading: 22px;
-  --font-size-heading: 28px;
-  --font-size-display: clamp(40px, 7vw, 72px);
+  --font-size-subheading: clamp(32px, 3vw, 36px);
+  --font-size-heading: clamp(40px, 4vw, 48px);
+  --font-size-display: clamp(40px, 4vw, 48px);
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -54,7 +56,7 @@ body {
   background: var(--color-background);
   font-family: var(--font-family);
   font-size: var(--font-size-body);
-  line-height: 1.55;
+  line-height: 1.65;
 }
 
 button,
@@ -87,20 +89,29 @@ p {
 
 h1 {
   margin-bottom: var(--space-md);
+  font-family: var(--font-family-heading);
   font-size: var(--font-size-heading);
+  font-weight: 800;
   line-height: 1.15;
+  letter-spacing: -1.5px;
 }
 
 h2 {
   margin-bottom: var(--space-md);
+  font-family: var(--font-family-heading);
   font-size: var(--font-size-subheading);
+  font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.8px;
 }
 
 h3 {
   margin-bottom: var(--space-sm);
-  font-size: 18px;
+  font-family: var(--font-family-heading);
+  font-size: clamp(22px, 2.2vw, 26px);
+  font-weight: 700;
   line-height: 1.3;
+  letter-spacing: -0.4px;
 }
 
 .container {
@@ -125,8 +136,9 @@ h3 {
   display: inline-block;
   margin-bottom: var(--space-sm);
   color: var(--color-accent);
+  font-family: var(--font-family-caption);
   font-size: var(--font-size-caption);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -226,6 +238,37 @@ h3 {
   flex: 1;
 }
 
+a,
+.link {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.footer p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+table,
+th,
+td,
+.booking-details,
+.room-meta {
+  font-family: var(--font-family-caption);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+th {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
 .navbar {
   position: sticky;
   z-index: 50;
@@ -248,7 +291,8 @@ h3 {
   gap: 10px;
   color: var(--color-surface);
   font-size: 19px;
-  font-weight: 800;
+  font-family: var(--font-family);
+  font-weight: 700;
   text-decoration: none;
 }
 .brand-mark {
@@ -276,7 +320,10 @@ h3 {
   background: transparent;
   border: 0;
   border-radius: var(--radius-sm);
-  font-weight: 700;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
   cursor: pointer;
 }
 .nav-link:hover, .nav-link.active {
@@ -316,9 +363,11 @@ h3 {
   background: var(--color-accent);
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: var(--font-size-body);
+  font-family: var(--font-family);
+  font-size: 15px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1;
+  letter-spacing: 0.1px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -401,8 +450,10 @@ h3 {
   gap: 6px;
   padding: 5px 9px;
   border-radius: 999px;
-  font-size: var(--font-size-caption);
-  font-weight: 700;
+  font-family: var(--font-family-caption);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 .badge-confirmed {
   color: var(--color-success);
@@ -423,7 +474,10 @@ h3 {
 .form-group label {
   display: block;
   margin-bottom: 6px;
-  font-weight: 700;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .input,
@@ -436,6 +490,10 @@ h3 {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
   outline: none;
 }
 .input:focus,
@@ -458,7 +516,10 @@ h3 {
   display: block;
   margin-top: var(--space-xs);
   color: var(--color-error);
-  font-size: var(--font-size-caption);
+  font-family: var(--font-family-caption);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .modal-overlay {
@@ -554,7 +615,11 @@ h3 {
   background: transparent;
   border: 0;
   border-radius: 6px;
+  font-family: var(--font-family);
+  font-size: 14px;
   font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
   cursor: pointer;
 }
 .tab.active {
@@ -592,7 +657,9 @@ h3 {
 }
 .footer p {
   margin: 0;
-  font-size: var(--font-size-caption);
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 @keyframes slide-in {
@@ -606,6 +673,63 @@ h3 {
     background-position-x: -200%;
   }
 }
+.nav-link {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.btn,
+.tab,
+.booking-tab {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
+}
+
+.badge {
+  font-family: var(--font-family-caption);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.form-group label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.input,
+.select,
+.textarea,
+.role-switcher select {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.error-text {
+  font-family: var(--font-family-caption);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tabs .tab,
+.booking-tabs .booking-tab {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1px;
+}
+
 .hero {
   position: relative;
   min-height: 650px;
@@ -978,8 +1102,11 @@ h3 {
 
 .price {
   color: var(--color-accent);
-  font-size: 19px;
+  font-family: var(--font-family-heading);
+  font-size: clamp(24px, 2.5vw, 30px);
   font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .booking-card {
@@ -1075,4 +1202,28 @@ h3 {
   to {
     transform: rotate(360deg);
   }
+}
+.room-card h3,
+.room-card .room-name {
+  font-family: var(--font-family-heading);
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.booking-details,
+.room-meta,
+table,
+th,
+td {
+  font-family: var(--font-family-caption);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+th {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
