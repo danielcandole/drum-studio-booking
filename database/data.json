@@ -71,6 +71,15 @@
       "role": "owner",
       "phone": "",
       "createdAt": "2026-10-24T07:28:06.791Z"
+    },
+    {
+      "id": 9,
+      "name": "Chicken Shots",
+      "email": "joresee.mywayy@my.smciligan.edu.ph",
+      "password": "$2a$10$6Lx07WKFv3gfxsCDnxmbvuoa6z8j0AOWAPW7DIo1/asbrpfPeDi7u",
+      "role": "drummer",
+      "phone": "",
+      "createdAt": "2026-10-26T15:10:31.085Z"
     }
   ],
   "rooms": [
@@ -198,6 +207,17 @@
       "status": "approved",
       "payment": "Paid",
       "createdAt": "2026-10-24T08:57:06.190Z"
+    },
+    {
+      "id": 1033,
+      "userId": 9,
+      "roomId": 1,
+      "date": "2026-10-27",
+      "time": "10:00",
+      "duration": 1,
+      "status": "pending",
+      "payment": "Pending",
+      "createdAt": "2026-10-26T15:11:21.614Z"
     }
   ],
   "tokens": [
