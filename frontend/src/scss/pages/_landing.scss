@@ -6,8 +6,14 @@
   overflow: hidden;
   color: var(--color-surface);
   background:
-    linear-gradient(90deg, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.72) 50%, rgba(10, 10, 10, 0.25) 100%),
-    url("https://images.unsplash.com/photo-1637716340365-4564e51f7995?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=85&w=1800") center/cover;
+    linear-gradient(
+      90deg,
+      rgba(10, 10, 10, 0.94) 0%,
+      rgba(10, 10, 10, 0.72) 50%,
+      rgba(10, 10, 10, 0.25) 100%
+    ),
+    url("./../images/background/4k-drums.jpg") center / cover no-repeat;
+
 
   h1 {
     max-width: 650px;
