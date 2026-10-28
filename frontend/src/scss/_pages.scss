@@ -32,8 +32,11 @@
 
 .price {
   color: var(--color-accent);
-  font-size: 19px;
+  font-family: var(--font-family-heading);
+  font-size: clamp(24px, 2.5vw, 30px);
   font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .booking-card {
@@ -132,5 +135,31 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.room-card h3,
+.room-card .room-name {
+  font-family: var(--font-family-heading);
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.booking-details,
+.room-meta,
+table,
+th,
+td {
+  font-family: var(--font-family-caption);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+th {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
