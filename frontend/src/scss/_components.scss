@@ -322,36 +322,48 @@
 
 .modal-overlay {
   position: fixed;
-  z-index: 100;
   inset: 0;
+  z-index: 1000;
+
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; 
+
   display: grid;
-  padding: var(--space-md);
   place-items: center;
+  padding: var(--space-md);
+
   background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(4px);
+  overflow-y: auto; 
 }
 
 .modal {
+  box-sizing: border-box;
   width: min(100%, 480px);
   max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
+  
   padding: var(--space-xl);
   background: var(--color-surface);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
 
   &-icon {
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 52px;
     height: 52px;
     margin-bottom: var(--space-md);
-    place-items: center;
     color: var(--color-error);
     background: var(--color-error-soft);
     border-radius: 50%;
     font-size: 22px;
+    flex-shrink: 0;
   }
 }
-
 .toast-region {
   position: fixed;
   z-index: 200;

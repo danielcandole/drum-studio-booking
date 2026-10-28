@@ -1,3 +1,4 @@
+
 .hero {
   position: relative;
   min-height: 650px;
@@ -13,7 +14,6 @@
       rgba(10, 10, 10, 0.25) 100%
     ),
     url("./../images/background/4k-drums.jpg") center / cover no-repeat;
-
 
   h1 {
     max-width: 650px;
@@ -41,55 +41,118 @@
   }
 }
 
-.hero-content {
-  max-width: 690px;
-  padding: var(--space-3xl) 0;
 
-  @media (max-width: 560px) {
-    padding: var(--space-2xl) 0;
-  }
+
+.hero p {
+    max-width: 950px;
+    margin-bottom: var(--space-xl);
+    color: #e0e0e0;
+    font-size: 24px;
+    line-height: 1.8;
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+        font-size: 19px;
+    }
+
+    @media (max-width: 560px) {
+        font-size: 16px;
+        line-height: 1.7;
+    }
 }
 
-.hero-proof {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-lg);
-  margin-top: var(--space-xl);
-  color: #dddddd;
-  font-size: 14px;
 
-  span {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-  }
-}
 
-.steps {
-  counter-reset: steps;
-}
-
-.step {
+// featured spaces section background
+.section:not(.feature-strip) {
   position: relative;
-  padding: var(--space-lg);
-  counter-increment: steps;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--color-surface);
+  background:
+    linear-gradient(
+      rgba(12, 12, 12, 0.86),
+      rgba(12, 12, 12, 0.92)
+    ),
+    url("./../images/background/snare.jpg") center / cover no-repeat;
 
-  &::before {
-    display: grid;
-    width: 48px;
-    height: 48px;
-    margin-bottom: var(--space-md);
-    place-items: center;
+  .section-heading h2 {
     color: var(--color-surface);
-    background: var(--color-accent);
-    border-radius: 50%;
-    content: counter(steps);
-    font-size: 18px;
-    font-weight: 800;
+  }
+
+  .section-heading .muted {
+    color: #d0d0d0;
+  }
+
+  .card {
+    color: var(--color-surface);
+    background: rgba(25, 25, 25, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+
+    .muted {
+      color: #d0d0d0;
+    }
   }
 }
 
+// how it works section background
 .feature-strip {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   color: var(--color-surface);
-  background: var(--color-secondary);
+  background:
+    linear-gradient(
+      rgba(8, 8, 8, 0.88),
+      rgba(8, 8, 8, 0.94)
+    ),
+    url("./../images/background/stick.jpg") center / cover no-repeat;
+
+  .section-heading h2,
+  .section-heading .eyebrow {
+    color: var(--color-surface);
+  }
+
+  .step {
+    position: relative;
+    padding: var(--space-lg);
+    counter-increment: steps;
+
+    h3 {
+      margin-bottom: var(--space-sm);
+      color: var(--color-surface);
+    }
+
+    p {
+      color: #d0d0d0;
+    }
+
+    &::before {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin-bottom: var(--space-md);
+      place-items: center;
+      color: var(--color-surface);
+      background: var(--color-accent);
+      border-radius: 50%;
+      content: counter(steps);
+      font-size: 18px;
+      font-weight: 800;
+    }
+  }
+
+  .steps {
+    counter-reset: steps;
+  }
+}
+
+// responsive section backgrounds
+@media (max-width: 560px) {
+  .section:not(.feature-strip),
+  .feature-strip {
+    background-position: center;
+    background-attachment: scroll;
+  }
 }
