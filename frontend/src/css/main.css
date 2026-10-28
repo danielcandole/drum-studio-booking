@@ -392,7 +392,8 @@ h3 {
 }
 .card-image {
   height: 210px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .badge {
@@ -993,7 +994,8 @@ h3 {
 .booking-card img {
   width: 128px;
   height: 100px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: var(--radius-sm);
 }
 @media (max-width: 820px) {
@@ -1075,4 +1077,4 @@ h3 {
   to {
     transform: rotate(360deg);
   }
-}
+}/*# sourceMappingURL=main.css.map */
