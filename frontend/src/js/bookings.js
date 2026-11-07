@@ -25,10 +25,19 @@ export async function createBooking(button, payload, onSuccess) {
   }
 }
 
-export async function updateBooking(id, payload, onSuccess) {
+export async function updateBooking(
+  id,
+  payload,
+  onSuccess,
+  successMessage = "Your booking has been updated."
+) {
   try {
     await bookingsApi.update(id, payload);
-    showToast("success", "Your booking has been updated.", "Changes saved");
+    showToast(
+      "success",
+      successMessage,
+      successMessage === "Your booking has been updated." ? "Changes saved" : "Payment updated"
+    );
     await onSuccess?.();
   } catch (error) {
     showToast("error", error.message, "Update failed");

@@ -9,7 +9,8 @@ export function validateForm(form) {
     if (!field.value.trim()) {
       valid = false;
       field.classList.add("invalid");
-      field.insertAdjacentHTML("afterend", `<span class="error-text">${field.dataset.error || "This field is required."}</span>`);
+      const errorAnchor = field.closest(".password-input-wrapper") || field;
+      errorAnchor.insertAdjacentHTML("afterend", `<span class="error-text">${field.dataset.error || "This field is required."}</span>`);
     }
   });
 
@@ -18,7 +19,8 @@ export function validateForm(form) {
   if (password && confirmPassword && password.value !== confirmPassword.value) {
     valid = false;
     confirmPassword.classList.add("invalid");
-    confirmPassword.insertAdjacentHTML("afterend", '<span class="error-text">Passwords do not match.</span>');
+    const errorAnchor = confirmPassword.closest(".password-input-wrapper") || confirmPassword;
+    errorAnchor.insertAdjacentHTML("afterend", '<span class="error-text">Passwords do not match.</span>');
   }
   return valid;
 }

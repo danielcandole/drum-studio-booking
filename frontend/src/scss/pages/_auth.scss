@@ -1,36 +1,31 @@
 .auth-page {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   min-height: calc(100vh - 72px);
+  min-height: calc(100svh - 72px);
   background: var(--color-surface);
-}
-
-.auth-page {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  min-height: calc(100vh - 72px);
 }
 
 .auth-visual,
 .auth-panel {
   flex: 0 0 50%;
-  height: calc(100vh - 72px);
   box-sizing: border-box;
 }
 
 .auth-visual {
-  position: sticky;
-  top: 72px;
-  padding: var(--space-2xl);
-  color: var(--color-surface);
-  background:
-    linear-gradient(rgba(15, 15, 15, 0.55), rgba(15, 15, 15, 0.8)),
-    url("https://images.unsplash.com/photo-1544140119-e0ad950faf9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200")
-      center / cover;
   display: flex;
   align-items: flex-end;
+  min-height: calc(100vh - 72px);
+  min-height: calc(100svh - 72px);
+  padding: var(--space-2xl);
+  color: var(--color-surface);
+  background-color: #101010;
+  background-image:
+    linear-gradient(rgba(15, 15, 15, 0.48), rgba(15, 15, 15, 0.78)),
+    url("./../images/background/4k-drums.jpg");
+  background-position: center top;
+  background-size: auto, cover;
+  background-repeat: no-repeat;
 
   blockquote {
     max-width: 480px;
@@ -45,14 +40,87 @@
   justify-content: center;
   align-items: center;
   min-width: 0;
+  min-height: calc(100vh - 72px);
+  min-height: calc(100svh - 72px);
+  padding: clamp(40px, 6vh, 72px) clamp(28px, 6vw, 88px);
   background: var(--color-surface);
 
   .auth-form {
-    width: min(100%, 460px);
+    width: min(100%, 480px);
     margin: 0;
+
+    .password-input-wrapper {
+      position: relative;
+
+      .input {
+        padding-right: 52px;
+      }
+    }
+
+    .password-label-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: 6px;
+
+      label {
+        margin-bottom: 0;
+      }
+
+      a {
+        font-family: var(--font-family);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        text-decoration: none;
+      }
+    }
+
+    .password-visibility-toggle {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      color: var(--color-text-muted);
+      background: transparent;
+      border: 0;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      place-items: center;
+      transform: translateY(-50%);
+
+      &:hover {
+        color: var(--color-text);
+        background: var(--color-background);
+      }
+
+      &:focus-visible {
+        outline: 3px solid var(--color-accent);
+        outline-offset: 1px;
+      }
+    }
 
     .btn {
       width: 100%;
+    }
+
+    [hidden] {
+      display: none;
+    }
+
+    .auth-back-link {
+      margin: var(--space-md) 0 0;
+      text-align: right;
+    }
+
+    > p:last-child {
+      margin-top: var(--space-md);
+      margin-bottom: 0;
+      text-align: right;
     }
   }
 }
@@ -91,14 +159,26 @@
 
   .auth-visual {
     position: static;
+    align-self: auto;
     flex: none;
     width: 100%;
     height: auto;
-    min-height: 260px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    padding: var(--space-lg);
+    background-size: auto, cover;
   }
 
   .auth-panel {
+    flex: none;
     width: 100%;
+    min-height: auto;
+    padding: var(--space-2xl) clamp(20px, 6vw, 48px);
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-panel {
     padding: var(--space-xl) var(--space-md);
   }
 }

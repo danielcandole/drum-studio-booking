@@ -1,67 +1,76 @@
 
 .hero {
   position: relative;
-  min-height: 650px;
   display: grid;
   align-items: center;
   overflow: hidden;
+  min-height: clamp(620px, 56.25vw, 820px);
+  background-color: #0a0a0a;
   color: var(--color-surface);
-  background:
+  background-image:
     linear-gradient(
       90deg,
-      rgba(10, 10, 10, 0.94) 0%,
-      rgba(10, 10, 10, 0.72) 50%,
-      rgba(10, 10, 10, 0.25) 100%
+      rgba(10, 10, 10, 0.9) 0%,
+      rgba(10, 10, 10, 0.68) 52%,
+      rgba(10, 10, 10, 0.22) 100%
     ),
-    url("./../images/background/4k-drums.jpg") center / cover no-repeat;
+    url("./../images/background/4k-drums.jpg"),
+    linear-gradient(rgba(10, 10, 10, 0.82), rgba(10, 10, 10, 0.82)),
+    url("./../images/background/4k-drums.jpg");
+  background-position: center;
+  background-size: auto, contain, auto, cover;
+  background-repeat: no-repeat;
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(48px, 8vh, 96px);
+  }
+
+  .eyebrow {
+    color: #ff8585;
+  }
 
   h1 {
-    max-width: 650px;
+    max-width: 780px;
     margin-bottom: var(--space-lg);
     font-size: var(--font-size-display);
     letter-spacing: -0.04em;
+    line-height: 1.06;
   }
 
   p {
-    max-width: 570px;
+    max-width: 700px;
     margin-bottom: var(--space-xl);
     color: #e0e0e0;
-    font-size: 19px;
+    font-size: var(--font-size-lead);
+    line-height: 1.65;
   }
 
-  .btn-row .btn {
-    @media (max-width: 560px) {
-      width: 100%;
-    }
+  .btn-row {
+    gap: var(--space-md);
   }
 
   @media (max-width: 560px) {
-    min-height: 620px;
-    background-position: 62% center;
+    min-height: 600px;
+
+    h1 {
+      font-size: clamp(40px, 10vw, 48px);
+    }
+
+    .btn-row {
+      align-items: stretch;
+      flex-direction: column;
+      max-width: 320px;
+    }
   }
 }
 
-
-
-.hero p {
-    max-width: 950px;
-    margin-bottom: var(--space-xl);
-    color: #e0e0e0;
-    font-size: 24px;
-    line-height: 1.8;
-
-    @media (max-width: 768px) {
-        max-width: 100%;
-        font-size: 19px;
-    }
-
-    @media (max-width: 560px) {
-        font-size: 16px;
-        line-height: 1.7;
-    }
+.hero .container,
+.hero + .section .container,
+.feature-strip .container {
+  width: min(calc(100% - 64px), 1600px);
 }
-
-
 
 // featured spaces section background
 .section:not(.feature-strip) {
@@ -69,12 +78,16 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--color-surface);
-  background:
+  background-color: #0c0c0c;
+  background-image:
     linear-gradient(
       rgba(12, 12, 12, 0.86),
       rgba(12, 12, 12, 0.92)
     ),
-    url("./../images/background/snare.jpg") center / cover no-repeat;
+    url("./../images/background/snare.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   .section-heading h2 {
     color: var(--color-surface);
@@ -96,18 +109,47 @@
   }
 }
 
+.hero + .section {
+  min-height: 0;
+  padding-block: clamp(56px, 7vh, 80px);
+
+  .section-heading h2 {
+    font-size: clamp(38px, 4vw, 50px);
+  }
+
+  #featured-rooms {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #featured-rooms > div {
+    grid-column: auto;
+  }
+
+  #featured-rooms > div:last-child:nth-child(3n + 1) {
+    grid-column: 1;
+  }
+}
+
 // how it works section background
 .feature-strip {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  min-height: 640px;
+  padding-block: clamp(112px, 14vh, 160px);
   color: var(--color-surface);
-  background:
+  background-color: #080808;
+  background-image:
     linear-gradient(
       rgba(8, 8, 8, 0.88),
       rgba(8, 8, 8, 0.94)
     ),
-    url("./../images/background/stick.jpg") center / cover no-repeat;
+    url("./../images/background/stick.jpg"),
+    linear-gradient(rgba(8, 8, 8, 0.88), rgba(8, 8, 8, 0.94)),
+    url("./../images/background/stick.jpg");
+  background-position: center;
+  background-size: auto, contain, auto, cover;
+  background-repeat: no-repeat;
 
   .section-heading h2,
   .section-heading .eyebrow {
@@ -150,9 +192,38 @@
 
 // responsive section backgrounds
 @media (max-width: 560px) {
+  .hero .container,
+  .hero + .section .container,
+  .feature-strip .container {
+    width: calc(100% - 32px);
+  }
+
+  .hero + .section #featured-rooms {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero + .section #featured-rooms > div:last-child:nth-child(3n + 1) {
+    grid-column: auto;
+  }
+
   .section:not(.feature-strip),
   .feature-strip {
-    background-position: center;
     background-attachment: scroll;
+  }
+
+  @media (min-width: 561px) and (max-width: 900px) {
+    .hero + .section #featured-rooms {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero + .section #featured-rooms > div:last-child:nth-child(3n + 1) {
+      grid-column: auto;
+    }
+
+    .hero + .section #featured-rooms > div:last-child:nth-child(2n + 1) {
+      grid-column: 1 / -1;
+      width: min(100%, 420px);
+      justify-self: center;
+    }
   }
 }

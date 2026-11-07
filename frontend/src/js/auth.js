@@ -5,6 +5,8 @@ import { request, setToken } from "./api.js";
 export const authApi = {
   register: (payload) => request("/api/users/register", { method: "POST", body: JSON.stringify(payload) }),
   login: (payload) => request("/api/auth/login", { method: "POST", body: JSON.stringify(payload) }),
+  requestPasswordReset: (payload) => request("/api/auth/password-reset/request", { method: "POST", body: JSON.stringify(payload) }),
+  resetPassword: (payload) => request("/api/auth/password-reset/confirm", { method: "POST", body: JSON.stringify(payload) }),
   session: () => request("/api/auth/session"),
   logout: () => request("/api/auth/logout", { method: "POST" }),
 };
