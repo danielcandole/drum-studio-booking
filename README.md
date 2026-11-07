@@ -31,4 +31,4 @@ For frontend styling work, use a second terminal and run `npm run watch:css`; it
 **Drummer**
 
 - Email: `drummer@gmail.com`
-- Password: `12341234`
+- Password: `123412345`

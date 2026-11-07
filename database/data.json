@@ -56,9 +56,9 @@
     },
     {
       "id": 7,
-      "name": "James",
+      "name": "james",
       "email": "drummer@gmail.com",
-      "password": "$2a$10$f7zSu5tCK4iPMHxKHIwy0.lnRHr1ie4SpB2ZfCPtAI6YLDRJvaSLO",
+      "password": "$2a$10$zdtGpiH47xjuR7xA8/rFn.K3HMmvJzWPqIZ2R1t0PkTE7G8nJ3/3W",
       "role": "drummer",
       "phone": "",
       "createdAt": "2026-10-24T07:27:41.030Z"
@@ -85,27 +85,35 @@
   "rooms": [
     {
       "id": 1,
-      "name": "The Live Room 101",
-      "price": 100,
-      "capacity": 10,
-      "equipment": "Pearl Export, Zildjian cymbals",
-      "image": "https://images.unsplash.com/photo-1537054388073-cf990597af2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+      "name": "Live",
+      "price": 67,
+      "capacity": 2,
+      "equipment": "Verdant, goodfood",
+      "image": "https://www.google.com/imgres?q=drums&imgurl=https%3A%2F%2Fcdn.prod.website-files.com%2F649327d3c75e7d5a080dfcae%2F6a555187292fd0064b0b2441_f2ac15a7120b8411351c662beaf1be05_smt_abe-cunningham.webp&imgrefurl=https%3A%2F%2Fremo.com%2F&docid=tcC8gxzglvmCWM&tbnid=n0jnOXaZQfZOHM&vet=12ahUKEwjr9u_moN2XAxWyXOsIHYW2BTwQnPAOegQITBAA..i&w=2160&h=1440&hcb=2&ved=2ahUKEwjr9u_moN2XAxWyXOsIHYW2BTwQnPAOegQITBAA"
     },
     {
       "id": 2,
-      "name": "Studio B",
-      "price": 22,
-      "capacity": 3,
-      "equipment": "Tama Superstar, Sabian cymbals",
-      "image": "https://images.unsplash.com/photo-1568315618710-6210e787eef0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+      "name": "Practice Room A",
+      "price": 55,
+      "capacity": 2,
+      "equipment": "Compact acoustic drum kit, cymbals, and practice monitor",
+      "image": "/frontend/src/images/background/4k-drums.jpg"
     },
     {
       "id": 3,
-      "name": "Practice Pod",
-      "price": 16,
-      "capacity": 2,
-      "equipment": "Yamaha Stage Custom, headphones",
-      "image": "https://images.unsplash.com/photo-1731003163686-040d11411c18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+      "name": "Rehearsal Room B",
+      "price": 85,
+      "capacity": 4,
+      "equipment": "5-piece drum kit, cymbal set, bass amp, guitar amp, and mixer",
+      "image": "/frontend/src/images/background/4k-drums.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Performance Room C",
+      "price": 120,
+      "capacity": 6,
+      "equipment": "Professional drum kit, full cymbal set, PA system, mixer, and stage monitors",
+      "image": "/frontend/src/images/background/4k-drums.jpg"
     }
   ],
   "bookings": [
@@ -171,8 +179,8 @@
       "date": "2026-10-31",
       "time": "10:00",
       "duration": 1,
-      "status": "pending",
-      "payment": "Pending",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-24T08:49:02.043Z"
     },
     {
@@ -204,8 +212,8 @@
       "date": "2026-10-31",
       "time": "10:00",
       "duration": 1,
-      "status": "approved",
-      "payment": "Paid",
+      "status": "cancelled",
+      "payment": "Refunded",
       "createdAt": "2026-10-24T08:57:06.190Z"
     },
     {
@@ -215,9 +223,75 @@
       "date": "2026-10-27",
       "time": "10:00",
       "duration": 1,
+      "status": "cancelled",
+      "payment": "Refunded",
+      "createdAt": "2026-10-26T15:11:21.614Z"
+    },
+    {
+      "id": 1034,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-10-31",
+      "time": "11:00",
+      "duration": 1,
+      "status": "cancelled",
+      "payment": "Refunded",
+      "createdAt": "2026-10-28T17:14:36.191Z"
+    },
+    {
+      "id": 1035,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-10-29",
+      "time": "10:00",
+      "duration": 1,
+      "status": "approved",
+      "payment": "Paid",
+      "createdAt": "2026-10-28T17:42:03.400Z"
+    },
+    {
+      "id": 1036,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-10-28",
+      "time": "11:00",
+      "duration": 1,
+      "status": "approved",
+      "payment": "Paid",
+      "createdAt": "2026-10-28T17:42:52.062Z"
+    },
+    {
+      "id": 1037,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-11-07",
+      "time": "11:00",
+      "duration": 1,
+      "status": "cancelled",
+      "payment": "Refunded",
+      "createdAt": "2026-11-07T05:00:54.665Z"
+    },
+    {
+      "id": 1038,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-11-07",
+      "time": "10:00",
+      "duration": 3,
       "status": "pending",
       "payment": "Pending",
-      "createdAt": "2026-10-26T15:11:21.614Z"
+      "createdAt": "2026-11-07T06:58:02.265Z"
+    },
+    {
+      "id": 1039,
+      "userId": 7,
+      "roomId": 1,
+      "date": "2026-11-07",
+      "time": "22:00",
+      "duration": 3,
+      "status": "pending",
+      "payment": "Pending",
+      "createdAt": "2026-11-07T07:03:11.292Z"
     }
   ],
   "tokens": [
@@ -227,9 +301,9 @@
       "createdAt": "2026-10-24T05:18:43.476Z"
     },
     {
-      "token": "e7e9bfa0ee16ed7e6d9063db75e57434501fee43d029551952fb14ff47004c9c",
+      "token": "b01c77946d84239eb208814facdc3f2ee2a92575bcf8f583a2c08c9348e5e94d",
       "userId": 8,
-      "createdAt": "2026-10-28T06:47:26.027Z"
+      "createdAt": "2026-11-07T07:12:10.821Z"
     }
   ]
 }

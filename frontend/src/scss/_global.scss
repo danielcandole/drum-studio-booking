@@ -22,7 +22,10 @@
   --font-size-body: 16px;
   --font-size-subheading: clamp(32px, 3vw, 36px);
   --font-size-heading: clamp(40px, 4vw, 48px);
-  --font-size-display: clamp(40px, 4vw, 48px);
+  --font-size-display: clamp(48px, 6vw, 76px);
+  --font-size-lead: clamp(19px, 2vw, 24px);
+  --control-height: 48px;
+  --focus-ring: 0 0 0 3px rgba(198, 40, 40, 0.28);
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -69,6 +72,15 @@ textarea {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 img {

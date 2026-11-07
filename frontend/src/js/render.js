@@ -1,5 +1,5 @@
 export const images = {
-  hero: "https://images.unsplash.com/photo-1637716340365-4564e51f7995?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+  hero: "/frontend/src/images/background/4k-drums.jpg",
 };
 
 export const currency = (value) => `₱${Number(value || 0).toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -42,6 +42,8 @@ export function renderBookingCard(booking, actions = true, owner = false) {
         <div class="booking-details">
           <span><i class="fa-solid fa-calendar"></i>${new Date(`${booking.date}T00:00:00`).toLocaleDateString("en-PH", { day: "numeric", month: "short", year: "numeric" })}</span>
           <span><i class="fa-solid fa-clock"></i>${booking.time}</span>
+          <span><i class="fa-solid fa-hourglass-half"></i>${Number(booking.duration) || 1} ${(Number(booking.duration) || 1) === 1 ? "hour" : "hours"}</span>
+          <span><i class="fa-solid fa-receipt"></i>${currency(booking.roomPrice)} × ${Number(booking.duration) || 1} = ${currency(booking.total)}</span>
           <span><i class="fa-solid fa-receipt"></i>#${booking.id}</span>
           ${owner ? `<span><i class="fa-solid fa-user"></i>${booking.customer}</span>` : ""}
         </div>

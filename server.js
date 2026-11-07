@@ -27,6 +27,7 @@ const MIME = {
 };
 
 let writeQueue = Promise.resolve();
+const passwordResetChallenges = new Map();
 
 
 // Data storage
@@ -193,8 +194,21 @@ function validateBooking(data, payload, ignoreId = null) {
     });
   }
 
-  if (!Number.isFinite(duration) || duration <= 0 || duration > 12) {
+  if (!Number.isInteger(duration) || duration < 1 || duration > 3) {
     throw Object.assign(new Error('Invalid booking duration.'), {
+      status: 422,
+    });
+  }
+
+  const [startHour, startMinute] = time.split(':').map(Number);
+  const startMinutes = startHour * 60 + startMinute;
+  const closingTimeMinutes = 23 * 60;
+
+  if (
+    startMinutes >= closingTimeMinutes ||
+    startMinutes + duration * 60 > closingTimeMinutes
+  ) {
+    throw Object.assign(new Error('Bookings must end by 11:00 PM. Choose a shorter duration or an earlier time.'), {
       status: 422,
     });
   }
@@ -241,6 +255,77 @@ async function api(req, res, url) {
       authenticated: Boolean(currentUser(data, req)),
       user: publicUser(currentUser(data, req)),
     });
+  }
+
+  if (
+    route.startsWith('auth/password-reset/') &&
+    method === 'POST'
+  ) {
+    if (process.env.NODE_ENV === 'production') {
+      throw Object.assign(new Error('Password reset is unavailable.'), {
+        status: 404,
+      });
+    }
+
+    const email = String(payload.email || '').trim().toLowerCase();
+    const user = data.users.find((item) => item.email.toLowerCase() === email);
+
+    if (route === 'auth/password-reset/request') {
+      if (user) {
+        const code = String(crypto.randomInt(100000, 1000000));
+        passwordResetChallenges.set(email, {
+          userId: user.id,
+          codeHash: crypto.createHash('sha256').update(code).digest('hex'),
+          expiresAt: Date.now() + 10 * 60 * 1000,
+          attempts: 0,
+        });
+        console.info(`[DEV ONLY] Password reset code for ${email}: ${code}`);
+      }
+
+      return send(res, 200, {
+        message: 'If the account exists, a reset code was generated.',
+      });
+    }
+
+    if (route === 'auth/password-reset/confirm') {
+      const code = String(payload.code || '').trim();
+      const password = String(payload.password || '');
+      const challenge = passwordResetChallenges.get(email);
+
+      if (!user || !challenge || challenge.userId !== user.id || challenge.expiresAt <= Date.now()) {
+        passwordResetChallenges.delete(email);
+        throw Object.assign(new Error('Invalid or expired reset code.'), {
+          status: 400,
+        });
+      }
+
+      if (password.length < 8) {
+        throw Object.assign(new Error('Password must be at least 8 characters long.'), {
+          status: 422,
+        });
+      }
+
+      const submittedHash = crypto.createHash('sha256').update(code).digest();
+      const expectedHash = Buffer.from(challenge.codeHash, 'hex');
+
+      if (
+        !/^\d{6}$/.test(code) ||
+        !crypto.timingSafeEqual(submittedHash, expectedHash)
+      ) {
+        challenge.attempts += 1;
+        if (challenge.attempts >= 5) passwordResetChallenges.delete(email);
+        throw Object.assign(new Error('Invalid or expired reset code.'), {
+          status: 400,
+        });
+      }
+
+      user.password = bcrypt.hashSync(password, 10);
+      data.tokens = data.tokens.filter((item) => Number(item.userId) !== Number(user.id));
+      await writeData(data);
+      passwordResetChallenges.delete(email);
+
+      return send(res, 200, { message: 'Password changed successfully.' });
+    }
   }
 
   if (route === 'auth/login' && method === 'POST') {
@@ -474,6 +559,7 @@ async function api(req, res, url) {
 
     const roomId = Number(url.searchParams.get('roomId'));
     const date = url.searchParams.get('date') || '';
+    const excludeBookingId = Number(url.searchParams.get('excludeBookingId'));
 
     if (!roomById(data, roomId) || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       throw Object.assign(new Error('Invalid availability request.'), {
@@ -481,16 +567,23 @@ async function api(req, res, url) {
       });
     }
 
-    const bookedTimes = data.bookings
+    const bookings = data.bookings
       .filter(
         (booking) =>
           Number(booking.roomId) === roomId &&
           booking.date === date &&
-          booking.status !== 'cancelled'
+          booking.status !== 'cancelled' &&
+          Number(booking.id) !== excludeBookingId
       )
-      .map((booking) => booking.time);
+      .map((booking) => ({
+        time: booking.time,
+        duration: Number(booking.duration) || 1,
+      }));
 
-    return send(res, 200, { bookedTimes: [...new Set(bookedTimes)] });
+    return send(res, 200, {
+      bookings,
+      bookedTimes: [...new Set(bookings.map((booking) => booking.time))],
+    });
   }
 
   if (route === 'bookings' && ['GET', 'POST'].includes(method)) {
@@ -580,6 +673,12 @@ async function api(req, res, url) {
       });
     }
 
+    if ('payment' in payload && !isOwner) {
+      throw Object.assign(new Error('Only the owner can update payment status.'), {
+        status: 403,
+      });
+    }
+
     const changesSchedule = ['roomId', 'date', 'time', 'duration'].some((key) => key in payload);
 
     if (changesSchedule) {
@@ -598,9 +697,17 @@ async function api(req, res, url) {
 
       booking.status = payload.status;
 
-      if (payload.status === 'approved') booking.payment = 'Paid';
-      else if (payload.status === 'cancelled') booking.payment = 'Refunded';
-      else booking.payment = 'Pending';
+      if (payload.status === 'cancelled') booking.payment = 'Refunded';
+    }
+
+    if (isOwner && 'payment' in payload) {
+      if (payload.payment !== 'Paid' || booking.status === 'cancelled') {
+        throw Object.assign(new Error('Invalid payment status.'), {
+          status: 422,
+        });
+      }
+
+      booking.payment = 'Paid';
     }
 
     await writeData(data);

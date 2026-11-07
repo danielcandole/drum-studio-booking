@@ -13,6 +13,7 @@ import {
   authApi,
   handleAuth
 } from "./auth.js";
+import { setToken } from "./api.js";
 import {
   bookingsApi,
   createBooking,
@@ -30,6 +31,7 @@ import {
   deleteAccount
 } from "./users.js";
 import {
+  images,
   currency,
   renderRoomCard,
   renderBookingCard,
@@ -42,6 +44,19 @@ import {
 } from "./navbar.js";
 
 const app = document.querySelector("#app");
+
+document.addEventListener("error", (event) => {
+  const image = event.target;
+
+  if (
+    image instanceof HTMLImageElement &&
+    image.matches(".room-card .card-image, .booking-card img") &&
+    image.dataset.fallback !== "true"
+  ) {
+    image.dataset.fallback = "true";
+    image.src = images.hero;
+  }
+}, true);
 
 let currentUser = null;
 let currentRoute = "landing";
@@ -70,6 +85,7 @@ const routes = {
   landing: renderLanding,
   login: renderLogin,
   register: renderRegister,
+  "forgot-password": renderForgotPassword,
   "drummer-home": renderDrummerHome,
   "book-studio": renderBookStudio,
   "my-bookings": renderMyBookings,
@@ -103,6 +119,14 @@ function escapeHtml(value = "") {
     '"': "&quot;",
     "'": "&#039;"
   }[char]));
+}
+
+function capitalizeFirstLetter(value = "") {
+  const name = String(value).trim();
+
+  return name
+    ? `${name.charAt(0).toLocaleUpperCase()}${name.slice(1)}`
+    : name;
 }
 
 function formatDate(date) {
@@ -221,6 +245,10 @@ async function renderRegister() {
   await loadPage("register");
 }
 
+async function renderForgotPassword() {
+  await loadPage("forgot-password");
+}
+
 async function renderDrummerHome() {
   const [{ bookings }, { rooms }] = await Promise.all([
     bookingsApi.list(),
@@ -267,7 +295,7 @@ async function renderDrummerHome() {
     : "Your studio";
 
   document.querySelector("#welcome-title").textContent =
-    `Ready to make some noise, ${currentUser.name}?`;
+    `Ready to make some noise, ${capitalizeFirstLetter(currentUser.name)}?`;
 
   document.querySelector("#welcome-description").textContent = next
     ? `Your next session is ${next.time} at ${next.room}.`
@@ -363,7 +391,7 @@ async function updateBookingAvailability() {
   if (!room) return;
 
   const response = await fetch(
-    `/api/bookings/availability?roomId=${room.id}&date=${encodeURIComponent(selectedBookingDate)}`,
+    `/api/bookings/availability?roomId=${room.id}&date=${encodeURIComponent(selectedBookingDate)}&excludeBookingId=${selectedBookingId || ""}`,
     {
       headers: (() => {
         const token = localStorage.getItem("beatbase_auth_token");
@@ -376,37 +404,123 @@ async function updateBookingAvailability() {
   );
 
   const availability = await response.json();
-  const booked = new Set(availability.bookedTimes || []);
+  const bookings = availability.bookings || [];
 
   const times = [
     "10:00",
     "11:00",
     "12:00",
+    "13:00",
     "14:00",
     "15:00",
     "16:00",
     "17:00",
-    "18:00"
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00"
   ];
 
   const labels = {
     "10:00": "10:00 AM",
     "11:00": "11:00 AM",
     "12:00": "12:00 PM",
+    "13:00": "1:00 PM",
     "14:00": "2:00 PM",
     "15:00": "3:00 PM",
     "16:00": "4:00 PM",
     "17:00": "5:00 PM",
-    "18:00": "6:00 PM"
+    "18:00": "6:00 PM",
+    "19:00": "7:00 PM",
+    "20:00": "8:00 PM",
+    "21:00": "9:00 PM",
+    "22:00": "10:00 PM"
   };
 
-  if (!selectedBookingTime || booked.has(selectedBookingTime)) {
-    selectedBookingTime = times.find((time) => !booked.has(time)) || "";
+  const maxDurationForTime = (time) => {
+    const [hour, minute] = time.split(":").map(Number);
+    return Math.min(3, Math.floor((23 * 60 - (hour * 60 + minute)) / 60));
+  };
+
+  const getSessionTimeRange = (time) => {
+    if (!time) return "Choose a time";
+
+    const sessionStart = new Date(`${selectedBookingDate}T${time}:00+08:00`);
+    const sessionEnd = new Date(
+      sessionStart.getTime() + selectedBookingDuration * 60 * 60 * 1000
+    );
+    const endTime = sessionEnd.toLocaleTimeString("en-PH", {
+      timeZone: "Asia/Manila",
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    const startTime = labels[time];
+    const endsNextDay = sessionEnd.toLocaleDateString("en-CA", {
+      timeZone: "Asia/Manila"
+    }) !== sessionStart.toLocaleDateString("en-CA", {
+      timeZone: "Asia/Manila"
+    });
+
+    return `${startTime} – ${endTime}${endsNextDay ? " (next day)" : ""}`;
+  };
+
+  const hasConflict = (time, duration = selectedBookingDuration) => {
+    const [startHour, startMinute] = time.split(":").map(Number);
+    const start = startHour * 60 + startMinute;
+    const end = start + duration * 60;
+
+    return bookings.some((booking) => {
+      const [bookingHour, bookingMinute] = booking.time.split(":").map(Number);
+      const bookingStart = bookingHour * 60 + bookingMinute;
+      const bookingEnd = bookingStart + Number(booking.duration || 1) * 60;
+
+      return start < bookingEnd && end > bookingStart;
+    });
+  };
+
+  const maxAvailableDuration = (time) => {
+    const closingLimit = maxDurationForTime(time);
+
+    for (let duration = closingLimit; duration >= 1; duration -= 1) {
+      if (!hasConflict(time, duration)) return duration;
+    }
+
+    return 0;
+  };
+
+  if (!selectedBookingTime || !maxAvailableDuration(selectedBookingTime)) {
+    selectedBookingTime = times.find((time) => maxAvailableDuration(time) > 0) || "";
+  }
+
+  if (selectedBookingTime) {
+    selectedBookingDuration = Math.min(
+      selectedBookingDuration,
+      maxAvailableDuration(selectedBookingTime)
+    );
+  }
+
+  document.querySelectorAll(".duration-option").forEach((button) => {
+    const duration = Number(button.dataset.duration);
+    const exceedsClosingTime = selectedBookingTime &&
+      duration > maxDurationForTime(selectedBookingTime);
+    const conflicts = selectedBookingTime && hasConflict(selectedBookingTime, duration);
+
+    button.hidden = Boolean(exceedsClosingTime);
+    button.disabled = Boolean(conflicts);
+    button.classList.toggle(
+      "selected",
+      duration === selectedBookingDuration
+    );
+  });
+
+  if (!selectedBookingDuration) {
+    selectedBookingDuration = 1;
   }
 
   document.querySelector("#time-slots").innerHTML = times
     .map((time) => {
-      const unavailable = booked.has(time);
+      const unavailable = maxAvailableDuration(time) === 0;
 
       return `
         <button
@@ -431,16 +545,13 @@ async function updateBookingAvailability() {
     </div>
 
     <div class="summary-line">
-      <span>Time</span>
-      <strong>${selectedBookingTime ? labels[selectedBookingTime] : "Choose a time"}</strong>
+      <span>Session time</span>
+      <strong>${getSessionTimeRange(selectedBookingTime)}</strong>
     </div>
 
     <div class="summary-line">
-      <span>Duration</span>
-      <strong>
-        ${selectedBookingDuration}
-        ${selectedBookingDuration === 1 ? "hour" : "hours"}
-      </strong>
+      <span>Rate × duration</span>
+      <strong>${currency(room.price)} × ${selectedBookingDuration} ${selectedBookingDuration === 1 ? "hour" : "hours"}</strong>
     </div>
 
     <div class="summary-line summary-total">
@@ -558,7 +669,40 @@ async function renderManageBookings() {
 
   await loadPage("manage-bookings");
 
-  document.querySelector("#manage-bookings-list").innerHTML = bookings
+  const searchInput = document.querySelector("#manage-bookings-search");
+  const bookingList = document.querySelector("#manage-bookings-list");
+  const sortedBookings = sortBookingsNewestFirst(bookings);
+
+  function renderBookings(query = "") {
+    const normalizedQuery = query.trim().toLocaleLowerCase().replace(/[^a-z0-9]/g, "");
+    const filteredBookings = sortedBookings.filter((booking) => {
+      const bookingTime = new Date(
+        `${booking.date}T${booking.time}:00+08:00`
+      ).toLocaleTimeString("en-PH", {
+        timeZone: "Asia/Manila",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+      const searchableValues = [
+        booking.customer,
+        booking.customerEmail,
+        booking.date,
+        formatDate(booking.date),
+        booking.time,
+        bookingTime,
+        `${booking.id}`
+      ];
+
+      return searchableValues.some((value) =>
+        String(value || "")
+          .toLocaleLowerCase()
+          .replace(/[^a-z0-9]/g, "")
+          .includes(normalizedQuery)
+      );
+    });
+
+    bookingList.innerHTML = filteredBookings.length
+      ? filteredBookings
     .map((booking) => `
       <tr data-booking-id="${booking.id}">
         <td>
@@ -582,6 +726,11 @@ async function renderManageBookings() {
                 : ""
             }
             ${
+              booking.status !== "cancelled" && booking.payment !== "Paid"
+                ? '<button class="btn btn-secondary btn-small" data-action="mark-booking-paid"><i class="fa-solid fa-money-bill-wave"></i>Paid</button>'
+                : ""
+            }
+            ${
               booking.status !== "cancelled"
                 ? `
                     <button class="btn btn-secondary btn-small" data-action="edit-owner-booking">
@@ -597,7 +746,18 @@ async function renderManageBookings() {
         </td>
       </tr>
     `)
-    .join("");
+    .join("")
+      : `
+          <tr>
+            <td colspan="6" class="muted booking-search-empty">
+              ${normalizedQuery ? "No bookings match your search." : "No bookings yet."}
+            </td>
+          </tr>
+        `;
+  }
+
+  renderBookings();
+  searchInput.addEventListener("input", () => renderBookings(searchInput.value));
 }
 
 async function renderManageRooms() {
@@ -689,6 +849,22 @@ async function loadSession() {
 }
 
 document.addEventListener("click", async (event) => {
+  const passwordToggle = event.target.closest("[data-password-toggle]");
+
+  if (passwordToggle) {
+    const passwordInput = document.getElementById(passwordToggle.dataset.passwordToggle);
+
+    if (passwordInput) {
+      const isVisible = passwordInput.type === "text";
+      passwordInput.type = isVisible ? "password" : "text";
+      passwordToggle.setAttribute("aria-label", isVisible ? "Show password" : "Hide password");
+      passwordToggle.setAttribute("aria-pressed", String(!isVisible));
+      passwordToggle.innerHTML = `<i class="fa-solid ${isVisible ? "fa-eye" : "fa-eye-slash"}" aria-hidden="true"></i>`;
+    }
+
+    return;
+  }
+
   const routeButton = event.target.closest("[data-route]");
 
   if (routeButton) {
@@ -802,9 +978,34 @@ document.addEventListener("click", async (event) => {
     const id = Number(row?.dataset.bookingId);
 
     if (id) {
-      await updateBooking(id, {
-        status: "approved"
-      }, refreshCurrentRoute);
+      confirmModal(
+        "Are you sure you want to approve this booking?",
+        () => updateBooking(id, {
+          status: "approved"
+        }, refreshCurrentRoute),
+        "Approve booking?"
+      );
+    }
+
+    return;
+  }
+
+  if (action === "mark-booking-paid") {
+    const row = event.target.closest("[data-booking-id]");
+    const id = Number(row?.dataset.bookingId);
+
+    if (id) {
+      confirmModal(
+        "Have you received payment for this booking?",
+        () => updateBooking(
+          id,
+          { payment: "Paid" },
+          refreshCurrentRoute,
+          "Payment confirmed and marked as paid."
+        ),
+        "Confirm payment?",
+        { confirmLabel: "Confirm", cancelLabel: "Decline" }
+      );
     }
 
     return;
@@ -912,19 +1113,23 @@ document.addEventListener("click", async (event) => {
         await navigate("my-bookings");
       });
     } else {
-      await createBooking(button, {
-        roomId: selectedRoomId,
-        date: selectedBookingDate,
-        time: selectedBookingTime,
-        duration: selectedBookingDuration
-      }, async () => {
-        selectedBookingDate = "";
-        selectedBookingTime = "";
-        selectedBookingDuration = 1;
-        selectedRoomId = null;
+      confirmModal(
+        "Are you sure you want to confirm this booking?",
+        () => createBooking(button, {
+          roomId: selectedRoomId,
+          date: selectedBookingDate,
+          time: selectedBookingTime,
+          duration: selectedBookingDuration
+        }, async () => {
+          selectedBookingDate = "";
+          selectedBookingTime = "";
+          selectedBookingDuration = 1;
+          selectedRoomId = null;
 
-        await navigate("my-bookings");
-      });
+          await navigate("my-bookings");
+        }),
+        "Confirm booking?"
+      );
     }
 
     return;
@@ -942,6 +1147,67 @@ document.addEventListener("change", async (event) => {
 
 document.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  if (event.target.id === "password-reset-request-form") {
+    const form = event.target;
+    if (!validateForm(form)) return;
+
+    const button = form.querySelector("button[type='submit']");
+    button.disabled = true;
+    button.textContent = "Requesting code...";
+
+    try {
+      const email = form.querySelector("[name='email']").value.trim();
+      await authApi.requestPasswordReset({ email });
+
+      const resetForm = document.querySelector("#password-reset-form");
+      resetForm.querySelector("[name='email']").value = email;
+      form.hidden = true;
+      resetForm.hidden = false;
+      resetForm.querySelector("[name='code']").focus();
+      showToast("info", "If the account exists, a reset code was written to the BeatBase server terminal.", "Check the server terminal");
+    } catch (error) {
+      showToast("error", error.message, "Could not request reset code");
+    } finally {
+      button.disabled = false;
+      button.innerHTML = 'Request reset code <i class="fa-solid fa-arrow-right"></i>';
+    }
+
+    return;
+  }
+
+  if (event.target.id === "password-reset-form") {
+    const form = event.target;
+    if (!validateForm(form)) return;
+
+    const button = form.querySelector("button[type='submit']");
+    const email = form.querySelector("[name='email']").value;
+    button.disabled = true;
+    button.textContent = "Changing password...";
+
+    try {
+      await authApi.resetPassword({
+        email,
+        code: form.querySelector("[name='code']").value.trim(),
+        password: form.querySelector("[name='password']").value,
+      });
+
+      setToken(null);
+      currentUser = null;
+      await navigate("login");
+      document.querySelector("#email").value = email;
+      showToast("success", "Your password has been changed. Please log in with your new password.", "Password Changed");
+    } catch (error) {
+      showToast("error", error.message, "Password change failed");
+    } finally {
+      if (form.isConnected) {
+        button.disabled = false;
+        button.innerHTML = 'Change password <i class="fa-solid fa-arrow-right"></i>';
+      }
+    }
+
+    return;
+  }
 
   if (event.target.id === "auth-form") {
     await handleAuth(event.target, navigate);
